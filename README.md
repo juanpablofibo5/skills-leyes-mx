@@ -30,13 +30,16 @@ ambigüedades conocidas y su fecha de última verificación.
 klokk-skills-leyes/
 ├── README.md                        ← este archivo: propósito, guía de uso e índice
 ├── plantillas/
-│   └── plantilla-skill-legal.md     ← plantilla obligatoria para toda skill nueva
+│   └── plantilla-skill-legal.md     ← plantilla v1 (documento plano); pendiente su v2 Agent Skills
 └── skills/
-    └── ejemplo-jornada-laboral.md   ← demostración con placeholders (datos ficticios)
+    └── registro-jornada/            ← una carpeta por skill, en formato Agent Skills
+        ├── SKILL.md                 ← frontmatter parseable + instrucciones ejecutables
+        ├── references/              ← texto legal, criterios de tribunales, reglas R1–R10
+        └── assets/                  ← plantilla del reporte de salida
 ```
 
 La plantilla vive fuera de `skills/` a propósito: así "consumir las skills"
-es simplemente leer `skills/*.md`, sin filtrar nada.
+es simplemente leer `skills/*/SKILL.md`, sin filtrar nada.
 
 ## Anatomía de una skill
 
@@ -59,6 +62,22 @@ programáticamente sin parsear prosa.
 como `RD-xx` y los casos límite como `CL-xx`. Cada RD cita las F que la
 respaldan, y el código de Klokk podrá citar `<skill>/RD-xx` en cálculos y
 tests. La cadena completa: **artículo → regla → código**.
+
+### Formato v2 — Agent Skills (desde 2026-07-07)
+
+A partir de la primera skill real (`registro-jornada`), las skills adoptan el
+formato oficial de **Agent Skills**: una carpeta por skill con `SKILL.md`
+(frontmatter `name`/`description`/`metadata` + instrucciones ejecutables),
+`references/` para el contenido legal y `assets/` para plantillas de salida.
+El punto de entrada programático es `skills/<skill>/SKILL.md`.
+
+La anatomía (a)–(e) sigue siendo el checklist de contenido y se mapea así:
+(a) → `references/texto-legal.md` · (b) → `SKILL.md` y
+`references/criterios-tribunales.md` · (c) → `references/reglas.md` (con su
+estado FIRME / PENDIENTE por regla) · (d) → reglas `FIRME*` y marcas
+`PENDIENTE` · (e) → `metadata.reviewed_at` y la sección "Estado del contenido"
+del `SKILL.md`. La plantilla v1 (`plantillas/plantilla-skill-legal.md`) queda
+como referencia del formato documento hasta que exista su versión v2.
 
 ## Ciclo de vida de una skill
 
@@ -83,9 +102,10 @@ borrador ──→ en-verificacion ──→ verificada
 
 ## Cómo crear una skill nueva
 
-1. Copia `plantillas/plantilla-skill-legal.md` a `skills/<tema>.md`
-   (kebab-case, idéntico al campo `id`). Una skill = un tema operativo
-   (jornada, horas extra, aguinaldo…), no una ley completa.
+1. Crea `skills/<tema>/` (kebab-case) siguiendo la estructura de
+   `registro-jornada` — SKILL.md + references/ + assets/; mientras no exista
+   la plantilla v2, esa skill es la referencia del formato. Una skill = un
+   tema operativo (jornada, horas extra, aguinaldo…), no una ley completa.
 2. Llénala siguiendo las instrucciones incluidas en la propia plantilla.
 3. Toda afirmación legal se contrasta contra el DOF **antes** de marcar la
    skill como `verificada`.
@@ -96,7 +116,7 @@ borrador ──→ en-verificacion ──→ verificada
 
 | Skill | Qué cubre | Estado | Última revisión |
 |-------|-----------|--------|-----------------|
-| [ejemplo-jornada-laboral](skills/ejemplo-jornada-laboral.md) | Demostración de la plantilla — datos ficticios | borrador | 2026-07-06 |
+| [registro-jornada](skills/registro-jornada/SKILL.md) | Auditoría del registro electrónico de jornada — Art. 132 Fr. XXXIV LFT (DOF 2026-05-01) | en-verificacion | 2026-07-07 |
 
 <!-- Al agregar o revisar una skill, actualiza su fila. Este índice es el
      tablero de auditoría del repo. -->
@@ -110,8 +130,8 @@ Decisión abierta. Opciones sobre la mesa:
 - **Copia versionada por release** — un script sincroniza `skills/` hacia el
   repo principal y registra el commit de origen.
 - **Lectura directa de metadatos** — tooling del producto (o un agente) lee
-  `skills/*.md` y usa el frontmatter para validar vigencia antes de confiar en
-  una regla.
+  `skills/*/SKILL.md` y usa el frontmatter para validar vigencia antes de
+  confiar en una regla.
 
 Las tres dependen de lo mismo, y por eso el formato importa más que el
 mecanismo: frontmatter parseable, secciones fijas e IDs estables.
