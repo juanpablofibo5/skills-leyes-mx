@@ -128,3 +128,10 @@ deben validarse con un abogado laboralista antes de dar la skill por
 definitiva — especialmente las reglas FIRME* y todo lo PENDIENTE de 2027.
 Cuando la STPS publique sus disposiciones, esta skill se revisa y sube su
 `version` y `reviewed_at`.
+
+**Revisión 2026-07-07:** los textos del Art. 132 Fr. XXXIV, del Art. 994
+Fr. IV Bis y de los transitorios se contrastaron contra el decreto oficial
+descargado de diputados.gob.mx (`LFT_ref52_01may26.pdf`, DOF 1-may-2026
+edición vespertina): coinciden palabra por palabra. Se precisó el calendario
+de horas extra en `references/texto-legal.md` (Transitorio Cuarto: 9/9/10/11/12
+en 2026–2030, no un salto a 12 en 2028).

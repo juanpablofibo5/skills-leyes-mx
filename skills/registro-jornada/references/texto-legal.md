@@ -45,8 +45,12 @@ escala rápido. Verificar el valor de la UMA cada año.
 
 ### No confundir los dos calendarios graduales
 
-- **Jornada máxima:** baja 48h (2026) → 46 (2027) → 44 (2028) → 42 (2029) →
-  40 (2030).
-- **Horas extra legales:** suben de 9h a 12h semanales, en un calendario
-  SEPARADO que arranca el 1 de enero de 2028.
+- **Jornada máxima (Transitorio Segundo):** baja gradualmente a partir del
+  1 de enero del año que corresponda: 2026: 48 → 2027: 46 → 2028: 44 →
+  2029: 42 → 2030: 40 horas semanales.
+- **Horas extra legales (Transitorio Cuarto):** calendario gradual SEPARADO,
+  también a partir del 1 de enero del año correspondiente:
+  2026: 9 → 2027: 9 → 2028: 10 → 2029: 11 → 2030: 12 horas semanales.
+  (Precisión del 2026-07-07: el aumento no es un salto a 12 en 2028, sino
+  gradual 10/11/12 en 2028/2029/2030, según el texto del decreto.)
 - La skill debe usar el límite correcto según el año que audita.
