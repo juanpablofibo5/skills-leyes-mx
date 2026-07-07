@@ -73,11 +73,11 @@ Para cada regla que FALLA:
      SÍ  -> CRÍTICO  (expone a multa directa por trabajador)
      NO  -> siguiente pregunta
 
-  ¿La falla DEBILITA el valor probatorio? (R2, R4, R7, R8, R9)
+  ¿La falla DEBILITA el valor probatorio? (R2, R4, R5, R7, R8, R9)
      SÍ  -> ALTO  (pierde defensa en juicio, aunque exista registro)
      NO  -> siguiente pregunta
 
-  ¿Es buena práctica / cobertura parcial? (R5, R6)
+  ¿Es buena práctica / cobertura parcial? (R6)
      SÍ  -> MEDIO
 
   R10 y todo lo técnico de 2027 -> INFORMATIVO (pendiente STPS)
