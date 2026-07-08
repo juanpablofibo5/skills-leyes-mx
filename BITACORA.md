@@ -53,6 +53,11 @@ Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
 - Loops de `teletrabajo` CERRADOS (batch, v1 solo LFT por D-12): spec +
   skill construida, casos 6/6 ✓. RD-07 = PENDIENTE (NOM-037); CL-01
   (ventana del 40 %), CL-02 (alcance de la desconexión).
+- Loops de `conservacion-y-prueba` CERRADOS (batch): spec + skill, casos
+  6/6 ✓. Dos hallazgos mayores: (1) el 804-III ancla estatutariamente la
+  R5 de registro-jornada → precisión aplicada a sus reglas (D-13); (2) el
+  784-VIII conserva "nueve horas semanales" sin armonizar con los topes
+  2026 → CL-02, prioridad para el abogado.
 
 ## 2026-07-07 · S3 — Sistema de producción + jornada-laboral completa
 

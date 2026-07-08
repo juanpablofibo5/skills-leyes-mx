@@ -20,3 +20,11 @@ exigen hoy) o **PENDIENTE** (disposiciones STPS 2027).
 palabras, pero se deriva del requisito de "prueba plena" o de criterios
 judiciales sobre registros confiables. Las disposiciones de 2027 podrían
 formalizarlo.
+
+**Precisión 2026-07-07 (verificada contra el Art. 804 LFT, consolidada
+p. 340):** el piso estatutario de conservación de controles de asistencia es
+"durante el último año y un año después de que se extinga la relación
+laboral" (Art. 804, fracc. III y último párrafo). R5 ("mín. 12 meses") queda
+anclada a esa fuente — y el plazo posterior a la extinción, que R5 no
+mencionaba, es exigible. El detalle completo vive en la skill
+`conservacion-y-prueba`.
