@@ -4,10 +4,11 @@
 
 ## Ahora mismo
 
-- **Último loop cerrado:** fase 2 de `dias-de-descanso` — skill construida,
-  casos de prueba 6/6 ✓ (2026-07-07).
-- **Sin loop abierto.** Próximo: fase 1 de `dias-festivos` (Arts. 74–75,
-  LFT consolidada pp. 23–24, ya leídos en sesión).
+- **MODO BATCH activo (D-11):** completando P1+P2 de corrido, autorizado por
+  JP el 2026-07-07. Las specs producidas en este modo quedan 🟡 con revisión
+  de JP pendiente en bloque.
+- En cola: `dias-festivos` → `vacaciones` → `asistencia-y-faltas` →
+  `conservacion-y-prueba` → `teletrabajo` (v1 solo LFT, D-12).
 
 ## Estado por skill
 

@@ -31,6 +31,11 @@ Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
   (`skills/dias-de-descanso/`, estructura exacta de la sección 8), casos de
   prueba 6/6 ✓, checklist de fase 2 completo. 4 skills construidas;
   siguiente: `dias-festivos` (Arts. 74–75, pp. 23–24 ya leídos).
+- **MODO BATCH (D-11):** JP autorizó correr los loops de corrido para
+  completar P1+P2 mientras se ausenta. Regla de marcado: specs batch = 🟡
+  revisión de JP pendiente en bloque; nada se marca "aprobada" sin su gate.
+  Alcance quirúrgico: `teletrabajo` v1 solo LFT (D-12); P3 (menores,
+  lactancia) NO se construye — sigue siendo decisión abierta de JP.
 
 ## 2026-07-07 · S3 — Sistema de producción + jornada-laboral completa
 
