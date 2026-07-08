@@ -2,6 +2,27 @@
 
 Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
 
+## 2026-07-08 · S5 (cont.) — PIVOTE: librería agnóstica (D-18/D-19), R0+R1
+
+- **Observaciones de JP y Luis:** el diseño asumía features de Klokk sin
+  haber leído su código; lo que se quiere es una librería agnóstica — skills
+  por LEY que, en una sesión de Claude Code con acceso al repo target,
+  auditen el código REAL y produzcan plan de remediación no-destructivo,
+  re-ejecutable. Registrado como D-18. El contenido legal verificado no
+  cambia; cambia el empaque.
+- **R0 cerrado:** repo renombrado a `skills-leyes-mx` (D-19, GitHub
+  redirige; remote y carpeta local actualizados), visión reescrita en
+  README y CLAUDE.md, kickoff pendiente de teletrabajo v2 actualizado.
+  Menciones históricas del nombre viejo se conservan.
+- **R1 cerrado:** publicado `plantillas/flujo-auditoria-codigo.md` — el
+  flujo compartido F0–F5 (descubrimiento → aplicabilidad → mapeo
+  regla→código con evidencia archivo:línea → reporte trazable → plan de
+  remediación → implementación gated) + formato de reporte con delta entre
+  corridas. **Gate abierto: revisión de JP/Luis del flujo antes de R2.**
+- Nota operativa: dos cortes de internet interrumpieron turnos; en ambos se
+  verificó el estado (git/validador/tareas) antes de continuar — sin
+  pérdidas. La estructura del pivote (R0–R4) quedó en BACKLOG.
+
 ## 2026-07-08 · S5 (cont.) — Fase 1 NOM-037 cerrada: spec teletrabajo v2 en visto bueno
 
 - **Loop NOM-037 (etapa 2 de la Ruta, cierra D-12) — fase 1 CERRADA.**

@@ -53,6 +53,24 @@ Aguinaldo, PTU y cálculo de nómina: Klokk correlaciona horas con nómina
 (regla R9 de registro-jornada) pero no calcula pagos. Si el producto cambia,
 se reabre.
 
+## Reestructura a librería agnóstica (D-18/D-19) — loops del pivote
+
+Observaciones de JP y Luis (2026-07-08): skills POR LEY que auditan el código
+real de cualquier repo target — no features de Klokk. El contenido legal
+verificado no cambia; cambia el empaque y se agrega la capa de flujo.
+
+| Loop | Qué hace | Estado |
+|------|----------|--------|
+| R0 | Registrar el pivote (D-18), renombrar repo a `skills-leyes-mx` (D-19), re-visionar README/CLAUDE.md | ✅ cerrado 2026-07-08 |
+| R1 | `plantillas/flujo-auditoria-codigo.md`: el flujo compartido F0–F5 (descubrimiento → aplicabilidad → mapeo regla→código → reporte → plan de remediación → implementación gated) + formato de reporte trazable | ✅ cerrado 2026-07-08 — **gate: revisión de JP/Luis del flujo antes de R2** |
+| R2 | Reestructurar a skill-por-ley: `skills/lft/` (SKILL.md orquestador + `modulos/<tema>/`) y `skills/nom-037-stps/`; contenido legal se mueve VERBATIM; validador adaptado a la nueva estructura. Absorbe M-01 (normalizar registro-jornada) y M-03 (plantilla de reporte → compartida) | pendiente |
+| R3 | Generalización: fuera "Para Klokk"; procedimientos, árboles y casos reformulados a hallazgos-sobre-código (H-xx con evidencia archivo:línea) | pendiente |
+| R4 | **Dogfooding real:** JP/Luis corren `lft/` en una sesión de Claude Code dentro del repo real de Klokk — la librería debe funcionar sin saber nada de Klokk de antemano | pendiente |
+
+La fase 2 de `teletrabajo` v2 (spec ya en visto bueno) se ejecuta DESPUÉS de
+R2, directamente sobre la estructura nueva. Después de R4 continúa la Ruta a
+v1.0 (abajo): loops P3 como módulos de `lft/`, blindaje pre-abogado, fase 3.
+
 ## Ruta a v1.0 — profesionalización (2026-07-08, tras la aprobación en bloque)
 
 Meta: llegar a la fase 3 con TODO consolidado — la hora del abogado es cara y
