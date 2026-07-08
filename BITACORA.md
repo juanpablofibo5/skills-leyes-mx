@@ -26,7 +26,11 @@ Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
   libre en semanas de 5 días por la transición a 40h), 6 casos de prueba
   y checklist del brief verificado (9/9 — el requisito de calendarios
   graduales no aplica: el capítulo no tiene transitorios propios).
-  Gate abierto: visto bueno de JP.
+  Gate: visto bueno de JP → APROBADA.
+- Loop fase 2 de `dias-de-descanso` CERRADO: skill construida
+  (`skills/dias-de-descanso/`, estructura exacta de la sección 8), casos de
+  prueba 6/6 ✓, checklist de fase 2 completo. 4 skills construidas;
+  siguiente: `dias-festivos` (Arts. 74–75, pp. 23–24 ya leídos).
 
 ## 2026-07-07 · S3 — Sistema de producción + jornada-laboral completa
 

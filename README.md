@@ -119,6 +119,7 @@ borrador ──→ en-verificacion ──→ verificada
 | [registro-jornada](skills/registro-jornada/SKILL.md) | Auditoría del registro electrónico de jornada — Art. 132 Fr. XXXIV LFT (DOF 2026-05-01) | en-verificacion | 2026-07-07 |
 | [jornada-laboral](skills/jornada-laboral/SKILL.md) | Tipos de jornada y límites diario/semanal por año — Arts. 58–68 LFT + calendario 48→40 (2026–2030) | en-verificacion | 2026-07-07 |
 | [horas-extra](skills/horas-extra/SKILL.md) | Regímenes del tiempo extraordinario (+100 %/+200 %/siniestro) y topes por año — Arts. 65–68 LFT + calendario 9/9/10/11/12 | en-verificacion | 2026-07-07 |
+| [dias-de-descanso](skills/dias-de-descanso/SKILL.md) | Descanso semanal, prima dominical y pago doble del descanso trabajado — Arts. 69–73 LFT | en-verificacion | 2026-07-07 |
 
 <!-- Al agregar o revisar una skill, actualiza su fila. Este índice es el
      tablero de auditoría del repo. -->

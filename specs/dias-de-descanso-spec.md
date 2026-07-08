@@ -1,10 +1,10 @@
 # Spec: skill `dias-de-descanso`
 
-> 🔍 **BORRADOR — PENDIENTE DE VISTO BUENO DE JP.** Producida en fase 1 del
-> pipeline (ver BACKLOG.md) el 2026-07-07. Citas transcritas por Claude
-> directamente del PDF oficial descargado esa fecha (detalle en "Estado del
-> research"). No construir la skill hasta aprobar esta spec contra el PDF
-> oficial.
+> ✅ **APROBADA POR JP — 2026-07-07.** Producida en fase 1 del pipeline (ver
+> BACKLOG.md) el 2026-07-07; citas transcritas por Claude directamente del
+> PDF oficial descargado esa fecha (detalle en "Estado del research"). La
+> skill se construyó en fase 2 a partir de esta spec:
+> `skills/dias-de-descanso/`.
 
 ## 1. Resumen ejecutivo
 
