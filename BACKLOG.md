@@ -120,9 +120,14 @@ debe rendir — y salir de ella con la librería `verificada` y el tag v1.0.0.
       harness de evals por skill, post-v1.0.
 - [ ] **M-07** Sin tags de release; tag `v0.9.0` al cerrar la Etapa 2
       (catálogo de 11 completo) y `v1.0.0` tras la fase 3.
-- [ ] **M-08** Auditoría de transcripción independiente EN CURSO (agente en
-      background, 2026-07-08): cada cita F-xx contrastada carácter por
-      carácter contra los PDFs re-leídos. Resultados pendientes.
+- [x] **M-08** Auditoría de transcripción — pasada completa 2026-07-08:
+      las citas F-xx de las 9 skills contrastadas contra las páginas
+      oficiales (D1/D2, integridad confirmada por SHA-256): **0
+      discrepancias**; valores duros verificados (calendarios, límites,
+      porcentajes, plazos). Nota: el agente en background para la pasada se
+      colgó y se reemplazó por auditoría directa en sesión. Queda como
+      escalón OPCIONAL pre-fase 3: una pasada 100 % independiente (sesión
+      limpia, PDFs re-descargados, lector distinto).
 
 ### En paralelo (no bloquea ninguna etapa)
 

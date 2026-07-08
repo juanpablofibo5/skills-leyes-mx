@@ -2,6 +2,16 @@
 
 Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
 
+## 2026-07-08 · S5 (cont.) — Auditoría de citas cerrada (M-08)
+
+- El agente en background de la auditoría se colgó (10 min sin progreso) →
+  se reemplazó por auditoría directa en sesión: ~45 citas F-xx de las 9
+  skills contra las páginas oficiales de D1/D2 (integridad SHA-256
+  confirmada contra FUENTES.md): **0 discrepancias**. M-08 cerrado; la
+  pasada 100 % independiente queda como escalón opcional pre-fase 3.
+- Loop siguiente disparado en background: fase 1 de NOM-037-STPS →
+  `teletrabajo` v2 (etapa 2 de la Ruta, cierra D-12).
+
 ## 2026-07-08 · S5 — Aprobación del batch y Ruta a v1.0
 
 - JP revisó y aprobó EN BLOQUE las 5 specs del modo batch (D-14): banners
