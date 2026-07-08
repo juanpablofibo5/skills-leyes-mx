@@ -129,8 +129,8 @@ oficial de la LFT consolidada (diputados.gob.mx, portada: "Última Reforma DOF
 dignas" (DOF 27-12-2022) en los Arts. 76 y 78. La tabla de RD-01 es DERIVADA
 del texto: los años 1–5 son literales; los bloques quinquenales son lectura
 operativa estándar (FIRME* + CL-01). Spec de origen:
-`specs/vacaciones-spec.md`, **construida en modo batch (D-11): revisión de JP
-pendiente en bloque**.
+`specs/vacaciones-spec.md`, construida en modo batch (D-11) y **aprobada en
+bloque por JP el 2026-07-08 (D-14)**.
 
 **Pendiente para el abogado (fase 3):** CL-01 a CL-04 — en especial CL-01
 (cortes de bloque) y CL-04 (potestad del trabajador vs ventana de 6 meses).

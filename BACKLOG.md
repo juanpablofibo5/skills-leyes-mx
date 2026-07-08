@@ -29,16 +29,16 @@ negocio.
 | `jornada-laboral` | ¿Cuánto puede durar la jornada por tipo de turno y por año (calendario 48→40, 2026–2030)? | LFT consolidada pp. 21–22 (Arts. 58–68) + decreto DOF 2026-05-01 | ✅ 2 completada — espera fase 3 |
 | `horas-extra` | ¿Cuándo una hora es extra, cuántas caben por semana (9/9/10/11/12 en 2026–2030) y cómo se pagan? | LFT consolidada p. 22 (Arts. 65–68) + Transitorio Cuarto del decreto 2026 | ✅ 2 completada — espera fase 3 |
 | `dias-de-descanso` | ¿Qué descanso semanal corresponde, qué prima aplica y qué pasa si se trabaja? | LFT consolidada p. 23 (Arts. 69–73, localizados 2026-07-07) | ✅ 2 completada — espera fase 3 |
-| `dias-festivos` | ¿Qué días son descanso obligatorio y cómo se paga trabajarlos? | LFT consolidada pp. 23–24 (Arts. 74–75, localizados 2026-07-07) | ✅ 2 completada (batch D-11) — espera revisión JP + fase 3 |
+| `dias-festivos` | ¿Qué días son descanso obligatorio y cómo se paga trabajarlos? | LFT consolidada pp. 23–24 (Arts. 74–75, localizados 2026-07-07) | ✅ 2 completada — espera fase 3 (batch aprobado por JP 2026-07-08) |
 
 ## P2 — Lo que el registro debe poder probar o cubrir
 
 | Skill | Pregunta operativa | Fuentes a investigar* | Fase |
 |-------|--------------------|-----------------------|------|
-| `vacaciones` | ¿Cuántos días tocan por antigüedad y cómo se registran como ausencia justificada? | LFT consolidada p. 24 (Arts. 76–81, localizados 2026-07-07; reforma "vacaciones dignas" DOF 27-12-2022) | ✅ 2 completada (batch D-11) — espera revisión JP + fase 3 |
-| `teletrabajo` | ¿Qué obliga el teletrabajo en registro de jornada y desconexión? | LFT pp. 95–97 (Arts. 330-A–330-K, localizados 2026-07-07) ✓; NOM-037-STPS PENDIENTE (D-12) | ✅ 2 completada v1-LFT (batch D-11) — NOM-037 en loop dedicado |
-| `conservacion-y-prueba` | ¿Qué documentos conservar, cuánto tiempo, y qué pasa en juicio si faltan? | LFT pp. 335 y 340 (Arts. 784, 804 y 805, transcritos 2026-07-07) | ✅ 2 completada (batch D-11) — espera revisión JP + fase 3 |
-| `asistencia-y-faltas` | ¿Qué efectos legales tienen faltas y retardos, y qué debe quedar registrado? | LFT pp. 15–16 y 39 (Arts. 46–47, 134-V, 135-II, transcritos 2026-07-07) | ✅ 2 completada (batch D-11) — espera revisión JP + fase 3 |
+| `vacaciones` | ¿Cuántos días tocan por antigüedad y cómo se registran como ausencia justificada? | LFT consolidada p. 24 (Arts. 76–81, localizados 2026-07-07; reforma "vacaciones dignas" DOF 27-12-2022) | ✅ 2 completada — espera fase 3 (batch aprobado por JP 2026-07-08) |
+| `teletrabajo` | ¿Qué obliga el teletrabajo en registro de jornada y desconexión? | LFT pp. 95–97 (Arts. 330-A–330-K, localizados 2026-07-07) ✓; NOM-037-STPS PENDIENTE (D-12) | ✅ 2 completada v1-LFT — espera NOM-037 (D-12) + fase 3 (batch aprobado por JP 2026-07-08) |
+| `conservacion-y-prueba` | ¿Qué documentos conservar, cuánto tiempo, y qué pasa en juicio si faltan? | LFT pp. 335 y 340 (Arts. 784, 804 y 805, transcritos 2026-07-07) | ✅ 2 completada — espera fase 3 (batch aprobado por JP 2026-07-08) |
+| `asistencia-y-faltas` | ¿Qué efectos legales tienen faltas y retardos, y qué debe quedar registrado? | LFT pp. 15–16 y 39 (Arts. 46–47, 134-V, 135-II, transcritos 2026-07-07) | ✅ 2 completada — espera fase 3 (batch aprobado por JP 2026-07-08) |
 
 ## P3 — Perímetro (decidir si entran)
 
@@ -52,6 +52,62 @@ negocio.
 Aguinaldo, PTU y cálculo de nómina: Klokk correlaciona horas con nómina
 (regla R9 de registro-jornada) pero no calcula pagos. Si el producto cambia,
 se reabre.
+
+## Ruta a v1.0 — profesionalización (2026-07-08, tras la aprobación en bloque)
+
+Meta: llegar a la fase 3 con TODO consolidado — la hora del abogado es cara y
+debe rendir — y salir de ella con la librería `verificada` y el tag v1.0.0.
+
+### Etapa 1 — Infraestructura de calidad (barata, protege todo lo que sigue)
+
+1. **CI de validación** (GitHub Action): frontmatter completo y estados
+   válidos en toda skill, IDs F/RD/CL únicos, links internos sin romper,
+   cero `[corchetes]` fuera de `borrador`, alerta si `reviewed_at` supera el
+   umbral de caducidad.
+2. **Plantilla v2**: actualizar `plantillas/plantilla-skill-legal.md` al
+   formato real de la librería (Agent Skills: SKILL.md + references/) — la
+   plantilla v1 describe el formato viejo y es deuda desde S2.
+
+### Etapa 2 — Completar el contenido (para que el abogado revise UNA vez)
+
+3. **Loop NOM-037-STPS** → `teletrabajo` v2 (cierra D-12): descargar del DOF,
+   transcribir los requisitos aplicables al registro/checador.
+4. **Decisión P3 de JP**: ¿entran `trabajo-de-menores` y
+   `lactancia-y-descansos-especiales`? Si entran, sus loops (fuentes: LFT,
+   títulos de trabajos de menores y de mujeres).
+
+### Etapa 3 — Blindaje pre-abogado
+
+5. **Auditoría de transcripción independiente**: sesión limpia que
+   re-descargue los PDFs y contraste TODAS las citas F-xx carácter por
+   carácter (las citas se transcribieron de imágenes de página; una segunda
+   pasada caza errores de dedo).
+6. **Matriz de consistencia cruzada**: reglas compartidas (techo 12h), CL
+   heredados y fronteras entre skills — sin contradicciones ni referencias
+   rotas entre las 9.
+7. **Paquete del abogado**: `CASOS-LIMITE-CONSOLIDADO.md` con los ~35 CL-xx
+   de toda la librería, priorizados por impacto en dinero (al frente:
+   784-VIII vs topes 2026, concursos de pago doble, base del tope +4h,
+   ventana del 47-X).
+
+### Etapa 4 — Fase 3 y v1.0.0
+
+8. Sesión con el abogado laboralista sobre el paquete: resolver CL,
+   confirmar o corregir reglas FIRME*.
+9. Aplicar resoluciones: CL → resueltos, FIRME* → FIRME, estados →
+   `verificada`, versión de cada skill ↑.
+10. **Tag `v1.0.0`** = librería verificada; desde ahí, Klokk puede decir con
+    honestidad en qué se basa cada cálculo.
+
+### En paralelo (no bloquea ninguna etapa)
+
+- **Dogfooding**: correr las 9 skills contra el diseño actual de Klokk — los
+  hallazgos son el backlog de compliance del producto.
+- **Mecanismo de consumo** desde el repo principal (decisión de JP;
+  recomendación: tags de release).
+- **Vigilancia de reformas**: rutina programada que revise DOF/diputados;
+  fecha crítica conocida: disposiciones STPS del 132-XXXIV entran en vigor
+  el 2027-01-01 (Transitorio Quinto).
 
 ---
 

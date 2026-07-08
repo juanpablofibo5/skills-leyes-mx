@@ -126,8 +126,8 @@ PDF oficial de la LFT consolidada (diputados.gob.mx, "Última Reforma DOF
 14-05-2026"), pp. 335 y 340. Hallazgos de esta investigación: (1) el 804-III
 da ancla estatutaria exacta a la R5 de `registro-jornada`; (2) el 784-VIII
 conserva "nueve horas semanales" sin armonizar con los topes 2026 → CL-02.
-Spec de origen: `specs/conservacion-y-prueba-spec.md`, **construida en modo
-batch (D-11): revisión de JP pendiente en bloque**.
+Spec de origen: `specs/conservacion-y-prueba-spec.md`, construida en modo
+batch (D-11) y **aprobada en bloque por JP el 2026-07-08 (D-14)**.
 
 **Pendiente para el abogado (fase 3):** CL-01 a CL-04 — CL-02 y CL-03 son
 del máximo interés para Klokk (carga de la prueba del extraordinario y

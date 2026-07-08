@@ -124,8 +124,8 @@ CALENDARIO DEL AÑO AUDITADO: [festivos computados con su fracción de origen]
 Citas de los Arts. 74–75 transcritas el 2026-07-07 directamente del PDF
 oficial de la LFT consolidada (diputados.gob.mx, portada: "Última Reforma DOF
 14-05-2026"), pp. 23–24; la fracc. VII refleja la reforma DOF 30-09-2024.
-Spec de origen: `specs/dias-festivos-spec.md`, **construida en modo batch
-(D-11): revisión de JP pendiente en bloque**.
+Spec de origen: `specs/dias-festivos-spec.md`, construida en modo batch
+(D-11) y **aprobada en bloque por JP el 2026-07-08 (D-14)**.
 
 **Pendiente para el abogado (fase 3):** CL-01 a CL-04 — en especial los
 concursos de pago doble (CL-01, CL-02). Cuando se resuelvan, esta skill se

@@ -126,8 +126,8 @@ transcritas el 2026-07-07 directamente del PDF oficial de la LFT consolidada
 (diputados.gob.mx, "Última Reforma DOF 14-05-2026"), pp. 95–97 (capítulo
 adicionado DOF 11-01-2021). **La NOM-037-STPS NO fue transcrita (D-12):** sus
 requisitos son PENDIENTE (RD-07/CL-03). Spec de origen:
-`specs/teletrabajo-spec.md`, **construida en modo batch (D-11): revisión de
-JP pendiente en bloque**.
+`specs/teletrabajo-spec.md`, construida en modo batch (D-11) y **aprobada en
+bloque por JP el 2026-07-08 (D-14)**.
 
 **Pendiente para el abogado (fase 3):** CL-01 (ventana del 40 %) y CL-02
 (alcance de la desconexión). **Pendiente de loop dedicado:** NOM-037 → v2.

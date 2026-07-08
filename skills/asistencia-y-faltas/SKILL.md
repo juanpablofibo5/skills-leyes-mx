@@ -127,8 +127,8 @@ Citas de los Arts. 46, 47 (fracc. X y párrafos del aviso), 134 fracc. V y
 LFT consolidada (diputados.gob.mx, "Última Reforma DOF 14-05-2026"),
 pp. 15–16 y 39. Los retardos se trataron como no regulados por las fuentes
 leídas (CL-02) — no se inventó su régimen. Spec de origen:
-`specs/asistencia-y-faltas-spec.md`, **construida en modo batch (D-11):
-revisión de JP pendiente en bloque**.
+`specs/asistencia-y-faltas-spec.md`, construida en modo batch (D-11) y
+**aprobada en bloque por JP el 2026-07-08 (D-14)**.
 
 **Pendiente para el abogado (fase 3):** CL-01 a CL-04 — CL-01 (ventana de 30
 días) define la lógica del contador, la alerta más importante de la skill.

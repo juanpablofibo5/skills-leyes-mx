@@ -126,8 +126,9 @@ borrador ──→ en-verificacion ──→ verificada
 | [conservacion-y-prueba](skills/conservacion-y-prueba/SKILL.md) † | Documentos a conservar/exhibir y sus plazos, hechos con carga de la prueba del patrón y presunción en contra — Arts. 784, 804 y 805 LFT | en-verificacion | 2026-07-07 |
 | [asistencia-y-faltas](skills/asistencia-y-faltas/SKILL.md) † | Clasificación de ausencias, contador de la causal 47-X (4ª falta en 30 días) y soporte del despido por faltas — Arts. 46–47, 134–135 LFT | en-verificacion | 2026-07-07 |
 
-† Construida en modo batch (D-11 en DECISIONES.md): la revisión de su spec
-por JP está pendiente en bloque; la fase 3 (abogado) aplica igual que a todas.
+† Construida en modo batch (D-11 en DECISIONES.md); spec revisada y aprobada
+en bloque por JP el 2026-07-08 (D-14). La fase 3 (abogado) aplica igual que a
+todas.
 
 <!-- Al agregar o revisar una skill, actualiza su fila. Este índice es el
      tablero de auditoría del repo. -->

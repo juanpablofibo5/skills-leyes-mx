@@ -1,8 +1,9 @@
 # Spec: skill `teletrabajo`
 
-> 🟡 **CONSTRUIDA EN MODO BATCH (D-11) — 2026-07-07.** PENDIENTE: revisión de
-> JP en bloque y fase 3 con abogado. **Alcance v1 (D-12): solo el capítulo de
-> la LFT; la NOM-037-STPS queda como fuente PENDIENTE con loop dedicado.**
+> ✅ **SPEC APROBADA.** Construida en modo batch (D-11) el 2026-07-07;
+> revisada y aprobada en bloque por JP el 2026-07-08 (D-14). Pendiente:
+> fase 3 con abogado. **Alcance v1 (D-12): solo el capítulo de la LFT; la
+> NOM-037-STPS queda como fuente PENDIENTE con loop dedicado.**
 
 ## 1. Resumen ejecutivo
 

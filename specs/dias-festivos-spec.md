@@ -1,9 +1,8 @@
 # Spec: skill `dias-festivos`
 
-> 🟡 **CONSTRUIDA EN MODO BATCH (D-11) — 2026-07-07.** Producida y construida
-> de corrido con autorización de JP. PENDIENTE: revisión de JP en bloque
-> contra el PDF oficial, y fase 3 con abogado. Citas transcritas por Claude
-> del PDF oficial descargado el 2026-07-07 (detalle en "Estado del research").
+> ✅ **SPEC APROBADA.** Construida en modo batch (D-11) el 2026-07-07;
+> revisada y aprobada en bloque por JP el 2026-07-08 (D-14). Pendiente:
+> fase 3 con abogado laboralista.
 
 ## 1. Resumen ejecutivo
 

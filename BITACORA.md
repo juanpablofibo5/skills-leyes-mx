@@ -2,6 +2,18 @@
 
 Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
 
+## 2026-07-08 · S5 — Aprobación del batch y Ruta a v1.0
+
+- JP revisó y aprobó EN BLOQUE las 5 specs del modo batch (D-14): banners
+  🟡 → ✅ en specs y SKILL.md; README, BACKLOG y STATUS actualizados.
+- Corrección de conteo del cierre de anoche: eran 5 specs batch, no 6.
+- Verificación de integridad tras errores de reporte de anoche: los 3
+  archivos de `vacaciones` existen, están en git y el texto legal llega
+  íntegro hasta el Art. 81 (6/6 fuentes) — los Writes aplicaron aunque el
+  mensaje de resultado se perdió.
+- Se agrega la **Ruta a v1.0** al BACKLOG: etapas de profesionalización
+  hasta la fase 3 y el tag v1.0.0.
+
 ## 2026-07-07 · S4 — Adopción del proceso + fase 1 de horas-extra
 
 - Se adopta el sistema del agent-playbook: CLAUDE.md (kernel de reglas),
