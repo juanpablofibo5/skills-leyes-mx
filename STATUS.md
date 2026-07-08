@@ -28,12 +28,15 @@
 Todas las specs: aprobadas por JP (4 con gate individual, 5 en bloque el
 2026-07-08, D-14).
 
-## Decisiones abiertas de JP
+## Decisiones recientes (2026-07-08)
 
-1. **P3:** ¿entran `trabajo-de-menores` y `lactancia-y-descansos-especiales`
-   al catálogo antes de la fase 3?
-2. **Mecanismo de consumo** desde el repo principal de Klokk (recomendación:
-   tags de release; v1.0.0 = verificada por abogado).
+- **P3 entra completo (D-15):** `trabajo-de-menores` y
+  `lactancia-y-descansos-especiales` se construyen en la etapa 2 — el
+  catálogo final pre-abogado es de **11 skills**.
+- **Consumo (D-16):** decisión diferida con dueño — Luis la resuelve al
+  integrar la librería en el repo principal.
+- **Siguiente loop al disparar:** Etapa 1 de la Ruta a v1.0 (CI de
+  validación + plantilla v2).
 
 ## Fuentes oficiales ya localizadas (descargadas 2026-07-07)
 

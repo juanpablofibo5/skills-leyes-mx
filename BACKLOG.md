@@ -40,12 +40,12 @@ negocio.
 | `conservacion-y-prueba` | ¿Qué documentos conservar, cuánto tiempo, y qué pasa en juicio si faltan? | LFT pp. 335 y 340 (Arts. 784, 804 y 805, transcritos 2026-07-07) | ✅ 2 completada — espera fase 3 (batch aprobado por JP 2026-07-08) |
 | `asistencia-y-faltas` | ¿Qué efectos legales tienen faltas y retardos, y qué debe quedar registrado? | LFT pp. 15–16 y 39 (Arts. 46–47, 134-V, 135-II, transcritos 2026-07-07) | ✅ 2 completada — espera fase 3 (batch aprobado por JP 2026-07-08) |
 
-## P3 — Perímetro (decidir si entran)
+## P3 — Perímetro (decisión D-15: ENTRAN, 2026-07-08)
 
-- `trabajo-de-menores` — jornadas reducidas y prohibiciones (PyMEs con
-  trabajadores de 15–17 años).
-- `lactancia-y-descansos-especiales` — pausas que el checador debería
-  reconocer.
+| Skill | Pregunta operativa | Fuentes a investigar* | Fase |
+|-------|--------------------|-----------------------|------|
+| `trabajo-de-menores` | ¿Qué jornadas, descansos y prohibiciones aplican a trabajadores de 15–17 años? | LFT, título del trabajo de los menores (localizar en fase 1) | pendiente |
+| `lactancia-y-descansos-especiales` | ¿Qué pausas y reposos especiales debe reconocer y registrar el checador? | LFT, título del trabajo de las mujeres (localizar en fase 1) | pendiente |
 
 ## Fuera de alcance (decidido 2026-07-07)
 
@@ -72,9 +72,9 @@ debe rendir — y salir de ella con la librería `verificada` y el tag v1.0.0.
 
 3. **Loop NOM-037-STPS** → `teletrabajo` v2 (cierra D-12): descargar del DOF,
    transcribir los requisitos aplicables al registro/checador.
-4. **Decisión P3 de JP**: ¿entran `trabajo-de-menores` y
-   `lactancia-y-descansos-especiales`? Si entran, sus loops (fuentes: LFT,
-   títulos de trabajos de menores y de mujeres).
+4. **Loops P3** (D-15: entran ambas): `trabajo-de-menores` y
+   `lactancia-y-descansos-especiales` — fase 1 + fase 2 con el pipeline
+   normal.
 
 ### Etapa 3 — Blindaje pre-abogado
 
@@ -103,8 +103,8 @@ debe rendir — y salir de ella con la librería `verificada` y el tag v1.0.0.
 
 - **Dogfooding**: correr las 9 skills contra el diseño actual de Klokk — los
   hallazgos son el backlog de compliance del producto.
-- **Mecanismo de consumo** desde el repo principal (decisión de JP;
-  recomendación: tags de release).
+- **Mecanismo de consumo** desde el repo principal — decisión diferida con
+  dueño: Luis la resuelve e implementa al integrar (D-16).
 - **Vigilancia de reformas**: rutina programada que revise DOF/diputados;
   fecha crítica conocida: disposiciones STPS del 132-XXXIV entran en vigor
   el 2027-01-01 (Transitorio Quinto).

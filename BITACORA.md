@@ -13,6 +13,8 @@ Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
   mensaje de resultado se perdió.
 - Se agrega la **Ruta a v1.0** al BACKLOG: etapas de profesionalización
   hasta la fase 3 y el tag v1.0.0.
+- Decisiones de JP del día: P3 entra completo (D-15, catálogo final = 11
+  skills) y el mecanismo de consumo queda diferido con dueño — Luis (D-16).
 
 ## 2026-07-07 · S4 — Adopción del proceso + fase 1 de horas-extra
 
