@@ -27,6 +27,13 @@ Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
     Cierra la deuda de S2.
   - CLAUDE.md: el protocolo de loop ahora incluye el paso VALIDAR; README
     con badge del CI.
+- **Revisión integral por orden de JP** ("double check de todas las
+  skills"): validador 9/9 en verde; matriz de secciones 9/9 salvo
+  `registro-jornada` (formato pre-convención → M-01); disclaimer de
+  no-asesoría 9/9. Hallazgos M-01 a M-08 marcados en BACKLOG. FUENTES.md
+  creado con SHA-256 de los dos PDFs oficiales (M-02). Auditoría de
+  transcripción independiente lanzada en background (M-08) — un agente
+  fresco contrasta cada cita contra los PDFs re-leídos.
 
 ## 2026-07-07 · S4 — Adopción del proceso + fase 1 de horas-extra
 

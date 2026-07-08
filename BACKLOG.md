@@ -99,6 +99,31 @@ debe rendir — y salir de ella con la librería `verificada` y el tag v1.0.0.
 10. **Tag `v1.0.0`** = librería verificada; desde ahí, Klokk puede decir con
     honestidad en qué se basa cada cálculo.
 
+### Hallazgos de la revisión integral (2026-07-08) — room for improvement
+
+- [ ] **M-01 (alta)** `registro-jornada` usa el formato pre-convención:
+      reglas R1–R10 sin tabla CL, texto legal sin IDs F-xx ni página del PDF
+      por cita, secciones con nombres propios (sin "Capa interpretativa") y
+      criterios SCJN sin número de tesis/registro digital. Migrar el formato
+      SIN tocar el contenido aprobado; las tesis exactas se piden al abogado.
+- [x] **M-02** Fuentes sin ancla de integridad → `FUENTES.md` con SHA-256 de
+      los PDFs oficiales (hecho en esta revisión).
+- [ ] **M-03** `plantilla-reporte.md` compartida vive dentro de
+      `registro-jornada/assets/`; moverla a `plantillas/` y actualizar los
+      links de las 8 skills que la referencian.
+- [ ] **M-04** Capa jurisprudencial deliberadamente vacía en 8 de 9 skills;
+      poblarla con criterios verificados (Semanario Judicial de la
+      Federación) en la fase 3 o en un loop dedicado.
+- [ ] **M-05** Umbral de caducidad provisional (180 días, aviso — D-17);
+      definir el formal con el abogado.
+- [ ] **M-06** Los casos de prueba viven solo en las specs (no ejecutables);
+      harness de evals por skill, post-v1.0.
+- [ ] **M-07** Sin tags de release; tag `v0.9.0` al cerrar la Etapa 2
+      (catálogo de 11 completo) y `v1.0.0` tras la fase 3.
+- [ ] **M-08** Auditoría de transcripción independiente EN CURSO (agente en
+      background, 2026-07-08): cada cita F-xx contrastada carácter por
+      carácter contra los PDFs re-leídos. Resultados pendientes.
+
 ### En paralelo (no bloquea ninguna etapa)
 
 - **Dogfooding**: correr las 9 skills contra el diseño actual de Klokk — los

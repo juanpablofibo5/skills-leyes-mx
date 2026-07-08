@@ -7,9 +7,16 @@
 - **Etapa 1 de la Ruta a v1.0 COMPLETADA (2026-07-08):** CI de validación
   activo en cada push (`tools/validar.py` + Action `validacion`, D-17) y
   plantilla v2 publicada. Las 9 skills pasan el validador en verde.
-- **Sin loop abierto.** Siguiente al disparar: **Etapa 2** — loop NOM-037
-  (→ teletrabajo v2, cierra D-12) y los dos loops P3 (`trabajo-de-menores`,
-  `lactancia-y-descansos-especiales`, D-15).
+- **Loop ABIERTO (2026-07-08):** auditoría de transcripción independiente
+  corriendo en background — cada cita F-xx contra los PDFs, carácter por
+  carácter (M-08; Etapa 3 adelantada por orden de JP). Al terminar: aplicar
+  correcciones si las hay y cerrar en BITACORA.
+- Revisión integral hecha: hallazgos M-01 a M-08 marcados en BACKLOG
+  ("Hallazgos de la revisión integral"). Estructural: 9/9 skills con
+  validador en verde; divergencia de formato solo en `registro-jornada`
+  (M-01, pre-convención).
+- Siguiente al disparar: **Etapa 2** — loop NOM-037 (→ teletrabajo v2,
+  D-12) y los dos loops P3 (D-15).
 
 ## Estado por skill
 
