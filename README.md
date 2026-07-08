@@ -1,19 +1,30 @@
-# klokk-skills-leyes
+# skills-leyes-mx
 
-![validacion](https://github.com/juanpablofibo5/klokk-skills-leyes/actions/workflows/validacion.yml/badge.svg)
+![validacion](https://github.com/juanpablofibo5/skills-leyes-mx/actions/workflows/validacion.yml/badge.svg)
 
-Base de conocimiento legal versionada para **Klokk** — SaaS de control de
-asistencia vía WhatsApp para PyMEs en México.
+Librería de **skills de compliance legal mexicano para auditar cualquier base
+de código**. Cada skill corresponde a una ley o norma (LFT, NOM-037, y el
+catálogo crece), y se usa dentro de una sesión de Claude Code **con acceso al
+repositorio target**: carga el conocimiento legal verificado, lee la
+arquitectura y el código reales, produce una auditoría con evidencia
+`archivo:línea`, y propone un plan de remediación que respeta la codebase
+existente. Re-ejecutable en cualquier momento. (Primer consumidor: Klokk,
+SaaS de control de asistencia; la librería no depende de él.)
 
-Cada **skill** es un documento Markdown que convierte una obligación legal
-(LFT, NOMs, reglamentos) en reglas operativas que el producto puede
-implementar: con su fuente exacta, su interpretación práctica, sus
-ambigüedades conocidas y su fecha de última verificación.
+Cada skill convierte la obligación legal en reglas auditables con su fuente
+exacta (documento oficial + página, anclado por SHA-256 en
+[FUENTES.md](FUENTES.md)), su interpretación práctica, sus ambigüedades
+conocidas y su fecha de última verificación.
 
-> ⚠️ **Este repositorio no es asesoría legal.** Es la documentación interna de
-> en qué se basan los cálculos de Klokk. Ninguna skill debe usarse en
+> ⚠️ **Este repositorio no es asesoría legal.** Es una base de conocimiento
+> de en qué se basa cada regla auditada. Ninguna skill debe usarse en
 > producción si su estado no es `verificada`. Una skill desactualizada se
 > considera peligrosa, no solo inútil.
+
+> 🔄 **Reestructura en curso (D-18):** la librería migra de skills temáticas
+> a **skill por ley con módulos internos** más un flujo de auditoría de
+> código compartido ([plantillas/flujo-auditoria-codigo.md](plantillas/flujo-auditoria-codigo.md)).
+> Plan y estado: [BACKLOG.md](BACKLOG.md) y [STATUS.md](STATUS.md).
 
 ## ¿Por qué un repo separado del producto?
 

@@ -437,7 +437,7 @@ metadata:
 
 ## 10. Kickoff prompt (para la fase 2)
 
-> Sube la skill `teletrabajo` a v2 en el repo klokk-skills-leyes a partir de
+> Sube la skill `teletrabajo` a v2 en el repo skills-leyes-mx a partir de
 > `specs/teletrabajo-v2-nom037-spec.md` (leyendo también la v1,
 > `specs/teletrabajo-spec.md`, que sigue vigente para F-01 a F-07 y RD-01 a
 > RD-06). Aplica EXACTAMENTE los cambios de la sección 8; solo contenido de

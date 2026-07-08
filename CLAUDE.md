@@ -1,8 +1,10 @@
-# CLAUDE.md — kernel de trabajo de klokk-skills-leyes
+# CLAUDE.md — kernel de trabajo de skills-leyes-mx
 
-Base de conocimiento legal de Klokk (control de asistencia vía WhatsApp).
-Contexto completo en [README.md](README.md); catálogo y pipeline en
-[BACKLOG.md](BACKLOG.md).
+Librería de skills de compliance legal mexicano para auditar cualquier base
+de código (D-18; primer consumidor: Klokk). Contexto completo en
+[README.md](README.md); catálogo y pipeline en [BACKLOG.md](BACKLOG.md);
+flujo de auditoría en
+[plantillas/flujo-auditoria-codigo.md](plantillas/flujo-auditoria-codigo.md).
 
 ## Reglas duras (no negociables)
 
