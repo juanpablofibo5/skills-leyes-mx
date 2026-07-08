@@ -12,7 +12,12 @@ Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
   Transitorios Primero y Cuarto de D2 pp. 3–4), RD-01–RD-08, CL-01–CL-04
   (dos nuevos de dinero: base del tope +4h en transición, distribución
   4h×4 días vs topes graduales), 6 casos de prueba y checklist del brief
-  verificado (9/9). Gate abierto: visto bueno de JP.
+  verificado (9/9). Gate: visto bueno de JP → APROBADA.
+- Loop fase 2 de `horas-extra` CERRADO: skill construida
+  (`skills/horas-extra/`, estructura exacta de la sección 8), casos de
+  prueba 6/6 ✓, checklist de fase 2 completo (estructura, solo-spec, casos
+  reportados, índices README/BACKLOG/STATUS/BITACORA actualizados).
+  3 skills construidas; siguiente: `dias-de-descanso`.
 
 ## 2026-07-07 · S3 — Sistema de producción + jornada-laboral completa
 
