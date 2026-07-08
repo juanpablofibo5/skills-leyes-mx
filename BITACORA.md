@@ -2,6 +2,35 @@
 
 Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
 
+## 2026-07-08 · S5 (cont.) — Fase 1 NOM-037 cerrada: spec teletrabajo v2 en visto bueno
+
+- **Loop NOM-037 (etapa 2 de la Ruta, cierra D-12) — fase 1 CERRADA.**
+  Fuente oficial localizada y descargada de dof.gob.mx en la sesión:
+  PDF de la edición vespertina del 08-06-2023 (D3, 61 pp.; la NOM en
+  pp. 3–50) y texto íntegro HTML de la nota 5691672 (D4). Integridad:
+  SHA-256 idéntico en doble descarga de cada archivo → filas D3/D4 nuevas
+  en FUENTES.md. Verificación cruzada palabra por palabra HTML↔PDF en las
+  pp. 5–26. Búsqueda web: sin modificaciones posteriores de la NOM en el
+  DOF.
+- Spec BORRADOR producida: `specs/teletrabajo-v2-nom037-spec.md` — F-08 a
+  F-19 (numerales 1–2, 4.11, 4.20, 5.1, 5.2 d/e/h, 5.6, 5.10, 7.3 d/e,
+  PEC 10.3 obs. del listado, 10.4, Transitorio PRIMERO; cita = numeral +
+  página de D3), RD-07 redefinida (PENDIENTE → FIRME: NOM vigente desde
+  05-12-2023) + RD-08 a RD-12 nuevas (listado NOM, desconexión de alcance
+  completo, pausas/lactancia, cambio de modalidad documentado, conservación
+  ≥1 año), CL-03 resuelta + CL-05/06/07 nuevos, árbol de severidad v2
+  consistente con tabla y 7 casos de prueba (1 CUMPLE, 1 límite del 40.0 %).
+  Alcance quirúrgico: solo numerales verificables con datos de asistencia;
+  SST física/capacitación/exámenes → fuera de alcance declarado.
+- Hallazgo de transcripción: la columna "Riesgo" de la tabla del PEC (10.3)
+  viene VACÍA en la edición oficial (D3 pp. 14–25) — ninguna regla cita
+  severidades del PEC. Y el Transitorio PRIMERO dice "entrará a los 180
+  días" (sic, sin "en vigor").
+- Checklist de fase 1 verificado (brief 9/9; calendarios graduales: no
+  aplica — único transitorio = entrada en vigor). Validador en verde.
+- **Gate ABIERTO: visto bueno de JP a la spec v2.** La skill NO se tocó
+  (fase 2 solo tras el gate).
+
 ## 2026-07-08 · S5 (cont.) — Auditoría de citas cerrada (M-08)
 
 - El agente en background de la auditoría se colgó (10 min sin progreso) →

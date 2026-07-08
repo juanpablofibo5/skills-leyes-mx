@@ -36,7 +36,7 @@ negocio.
 | Skill | Pregunta operativa | Fuentes a investigar* | Fase |
 |-------|--------------------|-----------------------|------|
 | `vacaciones` | ¿Cuántos días tocan por antigüedad y cómo se registran como ausencia justificada? | LFT consolidada p. 24 (Arts. 76–81, localizados 2026-07-07; reforma "vacaciones dignas" DOF 27-12-2022) | ✅ 2 completada — espera fase 3 (batch aprobado por JP 2026-07-08) |
-| `teletrabajo` | ¿Qué obliga el teletrabajo en registro de jornada y desconexión? | LFT pp. 95–97 (Arts. 330-A–330-K, localizados 2026-07-07) ✓; NOM-037-STPS PENDIENTE (D-12) | ✅ 2 completada v1-LFT — espera NOM-037 (D-12) + fase 3 (batch aprobado por JP 2026-07-08) |
+| `teletrabajo` | ¿Qué obliga el teletrabajo en registro de jornada y desconexión? | LFT pp. 95–97 (Arts. 330-A–330-K, localizados 2026-07-07) ✓; NOM-037-STPS-2023 transcrita 2026-07-08 (D3/D4 en FUENTES.md) ✓ | ✅ 2 completada v1-LFT — **spec v2 (NOM-037) en visto bueno de JP** (fase 1 cerrada 2026-07-08, `specs/teletrabajo-v2-nom037-spec.md`) + fase 3 |
 | `conservacion-y-prueba` | ¿Qué documentos conservar, cuánto tiempo, y qué pasa en juicio si faltan? | LFT pp. 335 y 340 (Arts. 784, 804 y 805, transcritos 2026-07-07) | ✅ 2 completada — espera fase 3 (batch aprobado por JP 2026-07-08) |
 | `asistencia-y-faltas` | ¿Qué efectos legales tienen faltas y retardos, y qué debe quedar registrado? | LFT pp. 15–16 y 39 (Arts. 46–47, 134-V, 135-II, transcritos 2026-07-07) | ✅ 2 completada — espera fase 3 (batch aprobado por JP 2026-07-08) |
 
@@ -72,6 +72,9 @@ debe rendir — y salir de ella con la librería `verificada` y el tag v1.0.0.
 
 3. **Loop NOM-037-STPS** → `teletrabajo` v2 (cierra D-12): descargar del DOF,
    transcribir los requisitos aplicables al registro/checador.
+   **Fase 1 hecha (2026-07-08):** NOM descargada y anclada (D3/D4), spec
+   BORRADOR en `specs/teletrabajo-v2-nom037-spec.md` — gate: visto bueno de
+   JP; la fase 2 (construcción v2) se dispara tras el gate.
 4. **Loops P3** (D-15: entran ambas): `trabajo-de-menores` y
    `lactancia-y-descansos-especiales` — fase 1 + fase 2 con el pipeline
    normal.
