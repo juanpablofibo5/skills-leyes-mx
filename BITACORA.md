@@ -36,6 +36,10 @@ Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
   revisión de JP pendiente en bloque; nada se marca "aprobada" sin su gate.
   Alcance quirúrgico: `teletrabajo` v1 solo LFT (D-12); P3 (menores,
   lactancia) NO se construye — sigue siendo decisión abierta de JP.
+- Loops de `dias-festivos` CERRADOS (batch): spec + skill construida, casos
+  6/6 ✓. CL nuevos de dinero: concursos de pago doble festivo-domingo
+  (CL-01) y festivo-descanso semanal (CL-02); fuentes externas para las
+  fracc. VII y IX (CL-03/04).
 
 ## 2026-07-07 · S3 — Sistema de producción + jornada-laboral completa
 
