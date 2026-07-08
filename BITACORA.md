@@ -58,6 +58,16 @@ Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
   R5 de registro-jornada → precisión aplicada a sus reglas (D-13); (2) el
   784-VIII conserva "nueve horas semanales" sin armonizar con los topes
   2026 → CL-02, prioridad para el abogado.
+- Loops de `asistencia-y-faltas` CERRADOS (batch): spec + skill, casos
+  6/6 ✓. Regla fina: la causal 47-X se activa en la 4ª falta ("más de
+  tres"), alerta en la 3ª; retardos NO se convierten en faltas sin regla
+  pactada (CL-02).
+- **CIERRE DEL MODO BATCH:** librería P1+P2 completa — 9/9 skills
+  construidas, 54/54 casos de prueba ✓, todo pusheado. Incidente menor:
+  un push se colgó por red y se recuperó verificando estado antes de
+  reintentar (sin commits perdidos). Pendientes ordenados en STATUS.md:
+  revisión en bloque de JP (6 specs 🟡), NOM-037 (D-12), decisión P3,
+  fase 3 con abogado.
 
 ## 2026-07-07 · S3 — Sistema de producción + jornada-laboral completa
 
