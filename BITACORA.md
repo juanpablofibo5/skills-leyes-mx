@@ -2,6 +2,38 @@
 
 Orden: más reciente arriba. Cada entrada: qué se hizo, qué quedó pendiente.
 
+## 2026-07-09 · S6 — R2+R3 ejecutados con loop de agentes (D-20)
+
+- **Plan revisado antes de ejecutar:** review adversarial por instancia
+  Fable independiente encontró 11 problemas (bloqueador de CI por la spec
+  NOM en borrador, fuga de cláusulas v2 en la costura teletrabajo/NOM,
+  renumeraciones con colisión semántica, secciones sin destino, dependencias
+  de olas). Plan v2 los incorporó; D-20 registrado antes de desplegar.
+- **Ola 1 (builders Sonnet, 5 paquetes):** el límite de uso del plan tumbó a
+  4 de 5 builders y al reviewer de P4 a media respuesta — PERO los 31
+  archivos quedaron completos en disco. Recuperación frugal: verificación
+  MECÁNICA de fidelidad (script que diffea citas legales old↔new
+  bidireccional, barre klokk y refs viejas) en vez de 5 reviewers LLM.
+  Resultado inicial: 121 fallas → 1 defecto real (P3 fusionó el contenido
+  NOM dentro del módulo LFT, duplicando a P5) + falsos positivos del
+  verificador. Correcciones: módulo teletrabajo restaurado a LFT-puro con
+  referencias calificadas; cláusulas v2 reubicadas al NOM como notas
+  (contacto F-05-d, horario F-05-e) para no dejar citas huérfanas; claim
+  falso de aprobación de la spec v2 corregido en la procedencia. Verificador
+  final: **0 fallas**.
+- **Ola 2 (orquestador, por límite de uso):** lft/SKILL.md (flujo F0–F5
+  instanciado, regla global F2→severidad, índice real de los 9 módulos),
+  plantillas/plantilla-reporte.md v2 (M-03), tools/validar.py v2 (estructura
+  nueva, SPECS_EN_REVISION con D-20, cero-klokk como ERROR, citas huérfanas
+  como AVISO) y README completo con "Cómo se usa".
+- **Ensamblaje:** estructura vieja retirada (git rm de las 9 skills
+  temáticas), registro-jornada normalizado (M-01: F-xx uniformes, páginas
+  del decreto restauradas donde ya estaban verificadas), CLAUDE.md formato
+  v3, validador **0 errores / 7 avisos** (huérfanas contextuales + páginas
+  M-08 documentadas).
+- Pendiente inmediato: review final holístico + smoke test con fixture
+  (2 violaciones sembradas) por instancia Fable fresca; luego push + CI.
+
 ## 2026-07-08 · S5 (cont.) — PIVOTE: librería agnóstica (D-18/D-19), R0+R1
 
 - **Observaciones de JP y Luis:** el diseño asumía features de Klokk sin

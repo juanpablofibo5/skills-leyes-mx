@@ -1,58 +1,47 @@
 # STATUS — estado vivo del repo
 
-**Actualizado:** 2026-07-08 (pivote D-18 en ejecución)
+**Actualizado:** 2026-07-09
 
 ## Ahora mismo
 
-- **PIVOTE a librería agnóstica (D-18/D-19):** skills por LEY que auditan el
-  código real de cualquier repo target. R0 cerrado (repo renombrado a
-  `skills-leyes-mx`, visión reescrita en README/CLAUDE.md) y R1 cerrado
-  (flujo de auditoría F0–F5 publicado en
-  `plantillas/flujo-auditoria-codigo.md`).
-- **Gate abierto:** revisión de JP/Luis del flujo de auditoría antes de R2
-  (reestructura a `skills/lft/` + módulos y `skills/nom-037-stps/`).
-- **Gate en cola:** visto bueno de JP a `specs/teletrabajo-v2-nom037-spec.md`
-  — su fase 2 se ejecutará DESPUÉS de R2, ya sobre la estructura nueva.
-- Plan completo del pivote: BACKLOG → "Reestructura a librería agnóstica".
+- **R2+R3 EJECUTADOS (D-20):** la librería ya es skill-por-ley y agnóstica.
+  `skills/lft/` (9 módulos) + `skills/nom-037-stps/` (1 módulo), flujo
+  F0–F5, plantilla de reporte v2, validador v2 y README nuevos. Fidelidad
+  legal verificada mecánicamente (0 fallas); validador 0 errores.
+- **En curso:** review final holístico + smoke test (fixture con 2
+  violaciones sembradas) por instancia independiente → push + CI.
+- **Gates abiertos de JP:** (1) revisión en bloque del batch R2/R3 + spec
+  NOM (D-20); (2) R4 — dogfooding: correr `lft/` en una sesión dentro del
+  repo real del producto.
 
-## Estado por skill (estructura actual, pre-R2)
+## Estado por ley
 
-| Skill | Fase | Gate pendiente |
-|-------|------|----------------|
-| `registro-jornada` | ✅ 2 completada | Fase 3 (abogado) · se normaliza en R2 (M-01) |
-| `jornada-laboral` | ✅ 2 completada | Fase 3 (abogado) |
-| `horas-extra` | ✅ 2 completada | Fase 3 (abogado) |
-| `dias-de-descanso` | ✅ 2 completada | Fase 3 (abogado) |
-| `dias-festivos` | ✅ 2 completada | Fase 3 (abogado) |
-| `vacaciones` | ✅ 2 completada | Fase 3 (abogado) |
-| `teletrabajo` | ✅ 2 completada (v1 solo LFT); spec v2 NOM-037 lista | Visto bueno de JP a la spec v2 → fase 2 (post-R2) → fase 3 |
-| `conservacion-y-prueba` | ✅ 2 completada | Fase 3 (abogado) |
-| `asistencia-y-faltas` | ✅ 2 completada | Fase 3 (abogado) |
+| Skill-ley | Módulos | Estado |
+|-----------|---------|--------|
+| `lft` | registro-jornada · jornada-laboral · horas-extra · dias-de-descanso · dias-festivos · vacaciones · teletrabajo · conservacion-y-prueba · asistencia-y-faltas | en-verificacion — specs aprobadas (D-14 y gates individuales); anotaciones v2 de teletrabajo bajo D-20 |
+| `nom-037-stps` | teletrabajo-sst | en-verificacion — spec v2 PENDIENTE de revisión en bloque de JP (D-20) |
 
-En R2 estas skills se convierten en **módulos de `skills/lft/`** (la
-NOM-037 en su propia skill); el contenido legal se mueve verbatim.
+## Pendientes ordenados
 
-## Decisiones recientes (2026-07-08)
+1. **Revisión en bloque de JP (D-20):** spec NOM
+   (`specs/teletrabajo-v2-nom037-spec.md`) + la reestructura R2/R3.
+2. **R4 dogfooding** en el repo real del producto (primera corrida del flujo
+   F0–F5 de verdad).
+3. **Módulos P3 de la LFT** (D-15): trabajo-de-menores y
+   lactancia-y-descansos-especiales — pipeline normal.
+4. **Blindaje pre-abogado:** pasada independiente de transcripción (M-08,
+   incluye las páginas pendientes de los transitorios), matriz de
+   consistencia cruzada, paquete del abogado (CL-xx priorizados por dinero).
+5. **Fase 3 (abogado laboralista)** → estados a `verificada` → tag v1.0.0.
+6. Siguiente ley del catálogo: LFPDPPP (protección de datos).
 
-- **D-18 pivote:** librería agnóstica, skills por ley, flujo de auditoría
-  sobre código real; Klokk = primer consumidor.
-- **D-19 renombre:** `klokk-skills-leyes` → `skills-leyes-mx`.
-- D-15 (P3 entra: menores y lactancia, serán módulos de `lft/`), D-16
-  (consumo lo resuelve Luis), D-17 (CI con `verificada` bloqueada).
+## Fuentes oficiales (FUENTES.md, SHA-256)
 
-## Fuentes oficiales ya localizadas
-
-- LFT consolidada ("Última Reforma DOF 14-05-2026") —
-  https://www.diputados.gob.mx/LeyesBiblio/pdf/LFT.pdf
-  · Rescisión/faltas: pp. 15–16 · Jornada: pp. 21–22 · Descansos: p. 23 ·
-  Festivos: pp. 23–24 · Vacaciones: p. 24 · Obligaciones trabajadores:
-  p. 39 · Teletrabajo: pp. 95–97 · Carga de la prueba: p. 335 ·
-  Conservación: p. 340
-- Decreto reducción de jornada, DOF 1-may-2026 vespertina —
-  https://www.diputados.gob.mx/LeyesBiblio/ref/lft/LFT_ref52_01may26.pdf
-  · Transitorios: pp. 3–4
-- NOM-037-STPS-2023 (descargada 2026-07-08, D3/D4 en FUENTES.md) — DOF
-  08-06-2023 ed. vespertina, la NOM en pp. 3–50 · Listado 5.1: p. 7 ·
-  Política 5.2: p. 8 · Desconexión 4.11: p. 6 · Pausas/desconexión 7.3:
-  p. 12 · PEC 10.3: pp. 14–25 · Conservación 10.4 y Transitorio: p. 26 ·
-  Vigente desde 05-12-2023.
+- D1 — LFT consolidada ("Última Reforma DOF 14-05-2026"): jornada pp. 21–22 ·
+  descansos p. 23 · festivos pp. 23–24 · vacaciones p. 24 · rescisión/faltas
+  pp. 15–16 · obligaciones p. 39 · teletrabajo pp. 95–97 · prueba p. 335 ·
+  conservación p. 340
+- D2 — Decreto reducción de jornada (DOF 01-05-2026 vespertina): reformas y
+  transitorios pp. 3–4
+- D3/D4 — NOM-037-STPS-2023 (DOF 08-06-2023): numerales citados con página
+  en el módulo teletrabajo-sst

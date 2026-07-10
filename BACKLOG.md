@@ -63,9 +63,9 @@ verificado no cambia; cambia el empaque y se agrega la capa de flujo.
 |------|----------|--------|
 | R0 | Registrar el pivote (D-18), renombrar repo a `skills-leyes-mx` (D-19), re-visionar README/CLAUDE.md | ✅ cerrado 2026-07-08 |
 | R1 | `plantillas/flujo-auditoria-codigo.md`: el flujo compartido F0–F5 (descubrimiento → aplicabilidad → mapeo regla→código → reporte → plan de remediación → implementación gated) + formato de reporte trazable | ✅ cerrado 2026-07-08 — **gate: revisión de JP/Luis del flujo antes de R2** |
-| R2 | Reestructurar a skill-por-ley: `skills/lft/` (SKILL.md orquestador + `modulos/<tema>/`) y `skills/nom-037-stps/`; contenido legal se mueve VERBATIM; validador adaptado a la nueva estructura. Absorbe M-01 (normalizar registro-jornada) y M-03 (plantilla de reporte → compartida) | pendiente |
-| R3 | Generalización: fuera "Para Klokk"; procedimientos, árboles y casos reformulados a hallazgos-sobre-código (H-xx con evidencia archivo:línea) | pendiente |
-| R4 | **Dogfooding real:** JP/Luis corren `lft/` en una sesión de Claude Code dentro del repo real de Klokk — la librería debe funcionar sin saber nada de Klokk de antemano | pendiente |
+| R2 | Reestructurar a skill-por-ley: `skills/lft/` (SKILL.md orquestador + `modulos/<tema>/`) y `skills/nom-037-stps/`; contenido legal se mueve VERBATIM; validador adaptado a la nueva estructura. Absorbe M-01 (normalizar registro-jornada) y M-03 (plantilla de reporte → compartida) | ✅ cerrado 2026-07-09 (loop de agentes D-20: builders Sonnet + verificación mecánica de fidelidad, 0 fallas) |
+| R3 | Generalización: fuera "Para Klokk"; procedimientos, árboles y casos reformulados a hallazgos-sobre-código (H-xx con evidencia archivo:línea) | ✅ cerrado 2026-07-09 (CI bloquea "klokk" bajo skills/) |
+| R4 | **Dogfooding real:** JP/Luis corren `lft/` en una sesión de Claude Code dentro del repo real del producto — la librería debe funcionar sin saber nada del target de antemano | pendiente — siguiente paso natural tras la revisión en bloque |
 
 La fase 2 de `teletrabajo` v2 (spec ya en visto bueno) se ejecuta DESPUÉS de
 R2, directamente sobre la estructura nueva. Después de R4 continúa la Ruta a
@@ -122,16 +122,15 @@ debe rendir — y salir de ella con la librería `verificada` y el tag v1.0.0.
 
 ### Hallazgos de la revisión integral (2026-07-08) — room for improvement
 
-- [ ] **M-01 (alta)** `registro-jornada` usa el formato pre-convención:
-      reglas R1–R10 sin tabla CL, texto legal sin IDs F-xx ni página del PDF
-      por cita, secciones con nombres propios (sin "Capa interpretativa") y
-      criterios SCJN sin número de tesis/registro digital. Migrar el formato
-      SIN tocar el contenido aprobado; las tesis exactas se piden al abogado.
+- [x] **M-01** `registro-jornada` normalizado en R2 (2026-07-09): R1–R10 →
+      RD-01–RD-10 con tabla de mapeo, F-xx con documento y página, formato de
+      módulo estándar. Los números de tesis/registro digital de los criterios
+      SCJN siguen pendientes del abogado (fase 3).
 - [x] **M-02** Fuentes sin ancla de integridad → `FUENTES.md` con SHA-256 de
       los PDFs oficiales (hecho en esta revisión).
-- [ ] **M-03** `plantilla-reporte.md` compartida vive dentro de
-      `registro-jornada/assets/`; moverla a `plantillas/` y actualizar los
-      links de las 8 skills que la referencian.
+- [x] **M-03** cerrado en R2 (2026-07-09): `plantillas/plantilla-reporte.md`
+      v2 (formato del flujo F0–F5); la v1 de registro-jornada/assets se
+      retiró con la estructura vieja.
 - [ ] **M-04** Capa jurisprudencial deliberadamente vacía en 8 de 9 skills;
       poblarla con criterios verificados (Semanario Judicial de la
       Federación) en la fase 3 o en un loop dedicado.

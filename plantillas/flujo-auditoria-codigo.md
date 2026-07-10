@@ -121,9 +121,8 @@ límite** (CL-xx → sección INFORMATIVO) y sus **señales de aplicabilidad**
 (qué buscar en F1 para decidir si el módulo aplica). El flujo es el mismo
 para todas las leyes; los módulos son el conocimiento.
 
-## Nota de migración
+## Formato de reporte
 
-Este flujo sustituye el formato de reporte v1
-(`skills/registro-jornada/assets/plantilla-reporte.md`) cuando la
-reestructura R2 concluya (absorbe M-03). Hasta entonces, las skills actuales
-siguen funcionando con su formato v1.
+La instanciación de este flujo usa
+[plantilla-reporte.md](plantilla-reporte.md) (v2, R2/M-03 concluidos). Cada
+módulo agrega sus secciones fijas donde su `guia-auditoria.md` lo indique.

@@ -1,28 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Validador de klokk-skills-leyes — hace cumplir en CI las reglas del kernel
-(CLAUDE.md). Corre local (`python3 tools/validar.py`) y en GitHub Actions en
-cada push.
+Validador de skills-leyes-mx (v2 — estructura skill-por-ley, D-18/R2).
+
+Estructura validada:
+  skills/<ley>/SKILL.md                 frontmatter completo (name = carpeta)
+  skills/<ley>/modulos/<tema>/          texto-legal.md + reglas.md + guia-auditoria.md
 
 Qué valida:
-  1. Estructura por skill: SKILL.md + references/texto-legal.md + reglas.md.
-  2. Frontmatter completo: name (= carpeta), description, version, owner,
-     reviewed_at (fecha ISO, no futura), ley, fuente.
-  3. Caducidad: reviewed_at más viejo que el umbral -> AVISO (umbral
-     provisional, D-17; el formal lo definirá JP/abogado).
-  4. texto-legal.md: cero corchetes sin resolver (solo "[...]" de omisión en
-     citas); IDs F-xx únicos y consistentes entre tabla y citas.
-  5. reglas.md: IDs de regla únicos; cada fila con estado (FIRME/FIRME*/
-     PENDIENTE) y riesgo (Crítico/Alto/Medio/—) válidos; "ver CL-xx" apunta a
-     un CL existente; F-xx citadas existen en texto-legal.md.
-  6. Links internos de SKILL.md resuelven a archivos existentes.
-  7. Índices: toda skill aparece en README y BACKLOG; ninguna skill en estado
-     `verificada` (BLOQUEADO hasta la fase 3 con abogado — al completarla,
-     actualiza este guard junto con la decisión D-xx correspondiente).
-  8. Specs: toda skill (salvo las de spec externa) tiene specs/<name>-spec.md
-     con banner APROBADA (nunca BORRADOR/🟡 con la skill ya construida).
-  9. DECISIONES.md: IDs D-xx únicos y consecutivos.
+  1. Frontmatter de cada skill-ley: name, description, version (semver),
+     owner, reviewed_at (ISO, no futura; caducidad -> AVISO), ley, fuente.
+  2. Cada módulo con sus 3 archivos; guia-auditoria.md con la tabla
+     "Metadatos del módulo" y las secciones de Aplicabilidad y Procedencia.
+  3. texto-legal.md: corchetes solo "[...]"; el marcador
+     "(página: pendiente de pasada independiente — M-08)" es AVISO; IDs F-xx
+     únicos; toda fila de tabla F con su cita textual.
+  4. reglas.md: IDs de regla y CL únicos; estados (FIRME/FIRME*/PENDIENTE) y
+     riesgos (Crítico/Alto/Medio/—) válidos; "ver CL-xx" resuelve en el
+     archivo; F-xx sin calificar deben existir en el texto-legal del módulo.
+  5. AVISO por citas F-xx huérfanas (ninguna regla/nota/guía las cita).
+  6. Links internos relativos de SKILL.md y guias resuelven.
+  7. ERROR si "klokk" (case-insensitive) aparece bajo skills/ (D-18).
+  8. Guard de estados: ninguna skill `verificada` antes de la fase 3.
+  9. Specs: cada módulo de lft mapea a specs/<tema>-spec.md APROBADA
+     (allowlist SKILLS_SIN_SPEC); las skills en SPECS_EN_REVISION (D-20)
+     aceptan banner BORRADOR hasta la revisión en bloque de JP.
+ 10. DECISIONES.md: IDs D-xx únicos y consecutivos.
 
 Salida: exit 0 sin errores (avisos no fallan); exit 1 con errores.
 """
@@ -36,34 +39,28 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 HOY = dt.date.today()
 
-# Umbral PROVISIONAL de caducidad (ver D-17): genera AVISO, no error, hasta
-# que el umbral formal quede definido (la plantilla lo marca pendiente).
-UMBRAL_CADUCIDAD_DIAS = 180
+UMBRAL_CADUCIDAD_DIAS = 180  # provisional (D-17)
 
-# Skills cuya spec no vive en specs/ (spec externa; documentado en BITACORA).
+# Módulos cuya spec no vive en specs/ (spec externa; ver BITACORA).
 SKILLS_SIN_SPEC = {"registro-jornada"}
 
+# Skills construidas bajo D-20 cuya spec sigue en revisión en bloque de JP:
+# se exige que la spec exista, pero se ACEPTA banner BORRADOR hasta su gate.
+SPECS_EN_REVISION = {"nom-037-stps": "teletrabajo-v2-nom037-spec.md"}
+
+MARCADOR_PAGINA = "(página: pendiente de pasada independiente — M-08)"
 ESTADOS_REGLA = ("FIRME", "PENDIENTE")  # "FIRME*" contiene "FIRME"
 RIESGOS = ("Crítico", "Alto", "Medio", "—")
+CALIFICADORES = ("de la skill", "del módulo", "de la misma skill", "de ídem")
 
 errores: list[str] = []
 avisos: list[str] = []
 
 
-def err(msg: str) -> None:
-    errores.append(msg)
-
-
-def warn(msg: str) -> None:
-    avisos.append(msg)
-
-
-def rel(p: Path) -> str:
-    return str(p.relative_to(RAIZ))
-
-
-def leer(p: Path) -> str:
-    return p.read_text(encoding="utf-8")
+def err(m): errores.append(m)
+def warn(m): avisos.append(m)
+def rel(p: Path) -> str: return str(p.relative_to(RAIZ))
+def leer(p: Path) -> str: return p.read_text(encoding="utf-8")
 
 
 def validar_frontmatter(skill_md: Path, carpeta: str) -> None:
@@ -82,138 +79,167 @@ def validar_frontmatter(skill_md: Path, carpeta: str) -> None:
         "ley": r'^\s+ley:\s*"([^"]+)"',
         "fuente": r'^\s+fuente:\s*"([^"]+)"',
     }
-    valores: dict[str, str] = {}
+    v: dict[str, str] = {}
     for campo, patron in campos.items():
         mm = re.search(patron, fm, re.M)
         if not mm:
             err(f"{rel(skill_md)}: frontmatter sin campo obligatorio `{campo}`")
         else:
-            valores[campo] = mm.group(1)
-
-    if valores.get("name") and valores["name"] != carpeta:
-        err(
-            f"{rel(skill_md)}: name `{valores['name']}` no coincide con la "
-            f"carpeta `{carpeta}`"
-        )
-    if valores.get("version") and not re.fullmatch(r"\d+\.\d+\.\d+", valores["version"]):
-        err(f"{rel(skill_md)}: version `{valores['version']}` no es semver X.Y.Z")
-    if valores.get("reviewed_at"):
-        fecha = dt.date.fromisoformat(valores["reviewed_at"])
+            v[campo] = mm.group(1)
+    if v.get("name") and v["name"] != carpeta:
+        err(f"{rel(skill_md)}: name `{v['name']}` ≠ carpeta `{carpeta}`")
+    if v.get("version") and not re.fullmatch(r"\d+\.\d+\.\d+", v["version"]):
+        err(f"{rel(skill_md)}: version `{v['version']}` no es semver")
+    if v.get("reviewed_at"):
+        fecha = dt.date.fromisoformat(v["reviewed_at"])
         if fecha > HOY:
-            err(f"{rel(skill_md)}: reviewed_at `{fecha}` está en el futuro")
+            err(f"{rel(skill_md)}: reviewed_at `{fecha}` en el futuro")
         elif (HOY - fecha).days > UMBRAL_CADUCIDAD_DIAS:
-            warn(
-                f"{rel(skill_md)}: revisión con {(HOY - fecha).days} días de "
-                f"antigüedad (> umbral provisional de {UMBRAL_CADUCIDAD_DIAS}) "
-                f"— tratar como requiere-actualizacion"
-            )
+            warn(f"{rel(skill_md)}: revisión de hace {(HOY - fecha).days} días "
+                 f"(> {UMBRAL_CADUCIDAD_DIAS}) — tratar como requiere-actualizacion")
 
 
 def validar_texto_legal(path: Path) -> set[str]:
     texto = leer(path)
+    if MARCADOR_PAGINA in texto:
+        warn(f"{rel(path)}: páginas pendientes de pasada independiente (M-08)")
     for m in re.finditer(r"\[([^\]]*)\]", texto):
-        if m.group(1) != "...":
-            err(
-                f"{rel(path)}: corchetes sin resolver en texto legal: "
-                f"`[{m.group(1)[:40]}]` (solo se permite \"[...]\" de omisión)"
-            )
+        if m.group(1) != "..." and not (path.parent / m.group(1)).exists():
+            err(f"{rel(path)}: corchetes sin resolver: `[{m.group(1)[:40]}]`")
     citas = re.findall(r"^\*\*F-(\d{2})", texto, re.M)
     tabla = re.findall(r"^\| F-(\d{2}) \|", texto, re.M)
     dup = {x for x in citas if citas.count(x) > 1}
     if dup:
         err(f"{rel(path)}: IDs F duplicados en citas: {sorted(dup)}")
-    # La tabla lista los artículos (D1); los transitorios (D2) se citan sin
-    # fila de tabla. Regla: toda fila de tabla debe tener su cita textual.
     sin_cita = set(tabla) - set(citas)
     if sin_cita:
-        err(
-            f"{rel(path)}: filas de tabla sin cita textual: "
-            f"{sorted('F-' + x for x in sin_cita)}"
-        )
+        err(f"{rel(path)}: filas de tabla sin cita textual: {sorted('F-' + x for x in sin_cita)}")
     return {f"F-{x}" for x in citas}
 
 
-def validar_reglas(path: Path, fuentes: set[str]) -> None:
+def ref_calificada(texto: str, fin: int) -> bool:
+    return any(c in texto[fin:fin + 40] for c in CALIFICADORES)
+
+
+def es_fila_regla(linea: str) -> bool:
+    # Las tablas de reglas/CL tienen 5 columnas (>= 6 pipes); las tablas de
+    # equivalencia (mapeos con la spec, 2-4 columnas) no se validan como reglas.
+    return linea.count("|") >= 6
+
+
+def validar_reglas(path: Path, fuentes: set[str], guia_texto: str) -> None:
     texto = leer(path)
-    filas_rd = re.findall(r"^\| ((?:RD-\d{2}|R\d{1,2})) \|.*$", texto, re.M)
-    dup = {x for x in filas_rd if filas_rd.count(x) > 1}
+    lineas = texto.splitlines()
+    filas = [m.group(1) for l in lineas if es_fila_regla(l)
+             for m in [re.match(r"^\| (RD-\d{2}) \|", l)] if m]
+    dup = {x for x in filas if filas.count(x) > 1}
     if dup:
         err(f"{rel(path)}: IDs de regla duplicados: {sorted(dup)}")
-    for linea in texto.splitlines():
-        if re.match(r"^\| (?:RD-\d{2}|R\d{1,2}) \|", linea):
+    cls = set()
+    for linea in lineas:
+        if not es_fila_regla(linea):
+            continue
+        if re.match(r"^\| RD-\d{2} \|", linea):
             if not any(e in linea for e in ESTADOS_REGLA):
                 err(f"{rel(path)}: fila de regla sin estado válido: `{linea[:70]}…`")
             if not any(r in linea for r in RIESGOS):
                 err(f"{rel(path)}: fila de regla sin riesgo válido: `{linea[:70]}…`")
-            for f_ref in re.findall(r"F-\d{2}", linea):
-                if fuentes and f_ref not in fuentes:
-                    err(f"{rel(path)}: la regla cita {f_ref}, que no existe en texto-legal.md")
-    cls = set(re.findall(r"^\| (CL-\d{2}) \|", texto, re.M))
-    for ref in re.findall(r"ver (CL-\d{2})", texto):
-        if ref not in cls:
-            err(f"{rel(path)}: referencia `ver {ref}` sin CL correspondiente en el archivo")
-    for linea in texto.splitlines():
-        if re.match(r"^\| CL-\d{2} \|", linea):
+        m = re.match(r"^\| (CL-\d{2}) \|", linea)
+        if m:
+            cls.add(m.group(1))
             if not ("abierta" in linea or "resuelta" in linea):
                 err(f"{rel(path)}: fila de CL sin estado abierta/resuelta: `{linea[:70]}…`")
+    for linea in lineas:
+        # filas de equivalencia (ID | ID | …) documentan numeración de la
+        # spec: no se validan como citas del módulo
+        if re.match(r"^\| (?:F|RD|CL)-\d{2} \| (?:F|RD|CL)-\d{2} \|", linea):
+            continue
+        for m in re.finditer(r"F-\d{2}", linea):
+            if fuentes and m.group(0) not in fuentes and not ref_calificada(linea, m.end()):
+                err(f"{rel(path)}: cita {m.group(0)} sin calificar y no existe en texto-legal.md")
+        for m in re.finditer(r"ver (CL-\d{2})", linea):
+            if m.group(1) not in cls and not ref_calificada(linea, m.end()):
+                err(f"{rel(path)}: `ver {m.group(1)}` sin CL correspondiente en el archivo")
+    citadas = set(re.findall(r"F-\d{2}", texto)) | set(re.findall(r"F-\d{2}", guia_texto))
+    for f in sorted(fuentes - citadas):
+        warn(f"{rel(path.parent / 'texto-legal.md')}: cita {f} huérfana (ninguna regla/guía la usa)")
 
 
-def validar_links(skill_md: Path) -> None:
-    texto = leer(skill_md)
+def validar_guia(path: Path) -> None:
+    texto = leer(path)
+    if "Metadatos del módulo" not in texto:
+        err(f"{rel(path)}: sin tabla 'Metadatos del módulo'")
+    else:
+        for campo in ("version", "reviewed_at", "ley", "fuente"):
+            if not re.search(rf"^\| {campo} \|", texto, re.M):
+                err(f"{rel(path)}: Metadatos sin fila `{campo}`")
+    for seccion in ("Aplicabilidad", "Procedencia"):
+        if seccion.lower() not in texto.lower():
+            err(f"{rel(path)}: sin sección '{seccion}'")
+
+
+def validar_links(path: Path) -> None:
+    texto = leer(path)
     for destino in re.findall(r"\]\((?!https?://)([^)#\s]+)\)", texto):
-        if not (skill_md.parent / destino).resolve().exists():
-            err(f"{rel(skill_md)}: link interno roto -> `{destino}`")
+        if not (path.parent / destino).resolve().exists():
+            err(f"{rel(path)}: link interno roto -> `{destino}`")
 
 
-def validar_skill(carpeta: Path) -> None:
+def validar_ley(carpeta: Path) -> list[str]:
     nombre = carpeta.name
     skill_md = carpeta / "SKILL.md"
-    texto_legal = carpeta / "references" / "texto-legal.md"
-    reglas = carpeta / "references" / "reglas.md"
-    for obligatorio in (skill_md, texto_legal, reglas):
-        if not obligatorio.exists():
-            err(f"skills/{nombre}: falta {obligatorio.name}")
     if not skill_md.exists():
-        return
+        err(f"skills/{nombre}: falta SKILL.md")
+        return []
     validar_frontmatter(skill_md, nombre)
     validar_links(skill_md)
-    fuentes = validar_texto_legal(texto_legal) if texto_legal.exists() else set()
-    if reglas.exists():
-        validar_reglas(reglas, fuentes)
+    modulos_dir = carpeta / "modulos"
+    if not modulos_dir.is_dir():
+        err(f"skills/{nombre}: falta el directorio modulos/")
+        return []
+    modulos = []
+    skill_texto = leer(skill_md)
+    for mod in sorted(p for p in modulos_dir.iterdir() if p.is_dir()):
+        modulos.append(mod.name)
+        tl, rg, ga = mod / "texto-legal.md", mod / "reglas.md", mod / "guia-auditoria.md"
+        for f in (tl, rg, ga):
+            if not f.exists():
+                err(f"{rel(mod)}: falta {f.name}")
+        fuentes = validar_texto_legal(tl) if tl.exists() else set()
+        guia_texto = leer(ga) if ga.exists() else ""
+        if rg.exists():
+            validar_reglas(rg, fuentes, guia_texto)
+        if ga.exists():
+            validar_guia(ga)
+            validar_links(ga)
+        if mod.name not in skill_texto:
+            err(f"skills/{nombre}/SKILL.md: el módulo `{mod.name}` no está indexado")
+    return modulos
 
 
-def validar_indices(nombres: list[str]) -> None:
+def validar_globales(leyes: dict[str, list[str]]) -> None:
+    for p in sorted((RAIZ / "skills").rglob("*.md")):
+        if re.search(r"klokk", leer(p), re.I):
+            err(f"{rel(p)}: contiene 'Klokk' — la librería es agnóstica (D-18)")
     readme = leer(RAIZ / "README.md")
-    backlog = leer(RAIZ / "BACKLOG.md")
-    for nombre in nombres:
-        if f"skills/{nombre}/SKILL.md" not in readme:
-            err(f"README.md: la skill `{nombre}` no está en el índice")
-        if nombre not in backlog:
-            err(f"BACKLOG.md: la skill `{nombre}` no aparece")
     if re.search(r"\|\s*verificada\s*\|", readme):
-        err(
-            "README.md: hay una skill en estado `verificada` — BLOQUEADO hasta "
-            "la fase 3 con abogado (si la fase 3 ya ocurrió, actualiza este "
-            "guard junto con su decisión D-xx)"
-        )
-
-
-def validar_specs(nombres: list[str]) -> None:
-    for nombre in nombres:
-        if nombre in SKILLS_SIN_SPEC:
+        err("README.md: estado `verificada` — BLOQUEADO hasta la fase 3 "
+            "(si la fase 3 ya ocurrió, actualiza este guard con su D-xx)")
+    for ley in leyes:
+        if f"skills/{ley}/" not in readme and f"skills/{ley})" not in readme:
+            err(f"README.md: la skill-ley `{ley}` no está indexada")
+    for ley, spec in SPECS_EN_REVISION.items():
+        s = RAIZ / "specs" / spec
+        if ley in leyes and not s.exists():
+            err(f"specs/: falta {spec} (SPECS_EN_REVISION, D-20)")
+    for mod in leyes.get("lft", []):
+        if mod in SKILLS_SIN_SPEC:
             continue
-        spec = RAIZ / "specs" / f"{nombre}-spec.md"
-        if not spec.exists():
-            err(f"specs/: falta {nombre}-spec.md para una skill construida")
-            continue
-        texto = leer(spec)
-        if "APROBADA" not in texto:
-            err(f"{rel(spec)}: la skill está construida pero la spec no dice APROBADA")
-        if "BORRADOR" in texto or "🟡" in texto:
-            err(f"{rel(spec)}: banner BORRADOR/🟡 con la skill ya construida")
-
-
-def validar_decisiones() -> None:
+        s = RAIZ / "specs" / f"{mod}-spec.md"
+        if not s.exists():
+            err(f"specs/: falta {mod}-spec.md para el módulo construido")
+        elif "APROBADA" not in leer(s):
+            err(f"{rel(s)}: módulo construido con spec sin APROBADA")
     texto = leer(RAIZ / "DECISIONES.md")
     ids = [int(x) for x in re.findall(r"^\| D-(\d{2}) \|", texto, re.M)]
     dup = {x for x in ids if ids.count(x) > 1}
@@ -225,19 +251,19 @@ def validar_decisiones() -> None:
 
 def main() -> int:
     for archivo in ("CLAUDE.md", "README.md", "BACKLOG.md", "STATUS.md",
-                    "DECISIONES.md", "BITACORA.md"):
+                    "DECISIONES.md", "BITACORA.md", "FUENTES.md",
+                    "plantillas/flujo-auditoria-codigo.md",
+                    "plantillas/plantilla-reporte.md"):
         if not (RAIZ / archivo).exists():
-            err(f"falta el archivo de proceso {archivo}")
+            err(f"falta el archivo {archivo}")
 
-    carpetas = sorted(p for p in (RAIZ / "skills").iterdir() if p.is_dir())
-    for carpeta in carpetas:
-        validar_skill(carpeta)
-    nombres = [c.name for c in carpetas]
-    validar_indices(nombres)
-    validar_specs(nombres)
-    validar_decisiones()
+    leyes: dict[str, list[str]] = {}
+    for carpeta in sorted(p for p in (RAIZ / "skills").iterdir() if p.is_dir()):
+        leyes[carpeta.name] = validar_ley(carpeta)
+    validar_globales(leyes)
 
-    print(f"Validadas {len(nombres)} skills: {', '.join(nombres)}\n")
+    total_mod = sum(len(m) for m in leyes.values())
+    print(f"Validadas {len(leyes)} skills-ley ({', '.join(leyes)}) con {total_mod} módulos\n")
     for a in avisos:
         print(f"  AVISO  {a}")
     for e in errores:

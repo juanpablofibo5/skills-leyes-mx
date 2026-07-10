@@ -56,9 +56,16 @@ EJECUTAR la fase
       primero)
 - [ ] Estados a `verificada` + DECISIONES.md actualizado con lo resuelto
 
-## Formato de skills
+## Formato de skills (v3 — skill por ley, D-18/R2)
 
-Formato v2 — Agent Skills: carpeta por skill con `SKILL.md` + `references/`
-(+ `assets/` solo si tiene plantillas propias). Detalle y mapeo con la
-anatomía (a)–(e) en el README. La skill de referencia es
-`skills/jornada-laboral/`.
+Una skill por LEY: `skills/<ley>/SKILL.md` (frontmatter completo + flujo
+instanciado + regla F2→severidad + índice de módulos) y
+`skills/<ley>/modulos/<tema>/` con tres archivos: `texto-legal.md` (solo
+citas oficiales F-xx con documento y página), `reglas.md` (RD-xx + CL-xx +
+árbol de severidad) y `guia-auditoria.md` (aplicabilidad F1, superficies F2,
+guía, límites y procedencia). Referencias entre módulos/skills SIEMPRE
+calificadas ("RD-09 del módulo registro-jornada (lft)"). El flujo común vive
+en `plantillas/flujo-auditoria-codigo.md`; el reporte, en
+`plantillas/plantilla-reporte.md`. El módulo de referencia es
+`skills/lft/modulos/jornada-laboral/`. `tools/validar.py` hace cumplir todo
+esto en cada push.

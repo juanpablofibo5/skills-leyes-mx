@@ -3,168 +3,102 @@
 ![validacion](https://github.com/juanpablofibo5/skills-leyes-mx/actions/workflows/validacion.yml/badge.svg)
 
 Librería de **skills de compliance legal mexicano para auditar cualquier base
-de código**. Cada skill corresponde a una ley o norma (LFT, NOM-037, y el
-catálogo crece), y se usa dentro de una sesión de Claude Code **con acceso al
-repositorio target**: carga el conocimiento legal verificado, lee la
-arquitectura y el código reales, produce una auditoría con evidencia
-`archivo:línea`, y propone un plan de remediación que respeta la codebase
-existente. Re-ejecutable en cualquier momento. (Primer consumidor: Klokk,
-SaaS de control de asistencia; la librería no depende de él.)
+de código**. Cada skill corresponde a una ley o norma; se usa dentro de una
+sesión de Claude Code **con acceso al repositorio target**: carga el
+conocimiento legal verificado, lee la arquitectura y el código reales,
+produce una auditoría con evidencia `archivo:línea`, y propone un plan de
+remediación que respeta la codebase existente. Re-ejecutable en cualquier
+momento — cada corrida se fecha y se compara con la anterior.
 
-Cada skill convierte la obligación legal en reglas auditables con su fuente
-exacta (documento oficial + página, anclado por SHA-256 en
-[FUENTES.md](FUENTES.md)), su interpretación práctica, sus ambigüedades
-conocidas y su fecha de última verificación.
+Todo el contenido legal está transcrito de documentos oficiales (DOF /
+diputados.gob.mx) descargados y anclados por SHA-256 en
+[FUENTES.md](FUENTES.md), con documento y página por cita.
 
 > ⚠️ **Este repositorio no es asesoría legal.** Es una base de conocimiento
-> de en qué se basa cada regla auditada. Ninguna skill debe usarse en
-> producción si su estado no es `verificada`. Una skill desactualizada se
-> considera peligrosa, no solo inútil.
+> auditada de en qué se basa cada regla. El contenido está `en-verificacion`:
+> verificado contra fuentes oficiales y con specs aprobadas, pero la
+> validación por abogado laboralista (fase 3) sigue pendiente. Ninguna skill
+> debe presentarse como `verificada` antes de eso — el CI lo bloquea.
 
-> 🔄 **Reestructura en curso (D-18):** la librería migra de skills temáticas
-> a **skill por ley con módulos internos** más un flujo de auditoría de
-> código compartido ([plantillas/flujo-auditoria-codigo.md](plantillas/flujo-auditoria-codigo.md)).
-> Plan y estado: [BACKLOG.md](BACKLOG.md) y [STATUS.md](STATUS.md).
+## Cómo se usa (auditar un repositorio)
 
-## ¿Por qué un repo separado del producto?
+1. **Ten la librería junto al target:** clona este repo al lado del repo que
+   quieres auditar (el mecanismo definitivo de consumo es una decisión
+   abierta con dueño — D-16).
+2. **Abre una sesión de Claude Code EN el repo target** (la sesión debe poder
+   leer su código; a esta librería se llega por ruta).
+3. **Pide la auditoría de una ley:** p. ej. *"ejecuta la skill `lft` de
+   ../skills-leyes-mx sobre este repo"*. La skill corre el flujo
+   [F0–F5](plantillas/flujo-auditoria-codigo.md): descubrimiento de
+   arquitectura → aplicabilidad por módulo (los N/A se declaran, no se
+   omiten) → mapeo regla→código con evidencia → reporte → plan de
+   remediación. Nada se implementa sin tu aprobación explícita (F5 es gated).
+4. **El resultado** es un reporte con el
+   [formato estándar](plantillas/plantilla-reporte.md): hallazgos H-xx
+   trazables (fuente legal F-xx → regla RD-xx → `archivo:línea`), lo que
+   CUMPLE con su evidencia, los casos límite como INFORMATIVO, y el plan
+   priorizado por severidad × exposición.
 
-1. **Ritmo de cambio propio.** Las leyes cambian en fechas de publicación del
-   DOF, no en sprints. Separado, el conocimiento legal se versiona a su ritmo.
-2. **Ownership distinto.** Lo mantiene quien tiene el contexto legal (hoy el
-   fundador; eventualmente un abogado laboral), sin tocar el código del
-   producto.
-3. **Auditable y reutilizable.** Si un cliente o una autoridad pregunta *"¿en
-   qué se basa este cálculo?"*, la respuesta es una fuente de verdad
-   versionada, con historial de cambios en git.
+## Las leyes disponibles
+
+| Skill | Cubre | Módulos | Estado |
+|-------|-------|---------|--------|
+| [lft](skills/lft/SKILL.md) | Ley Federal del Trabajo — tiempo de trabajo y su prueba (incluida la reforma de reducción de jornada, DOF 2026-05-01, con sus calendarios 2026–2030) | registro-jornada · jornada-laboral · horas-extra · dias-de-descanso · dias-festivos · vacaciones · teletrabajo · conservacion-y-prueba · asistencia-y-faltas | en-verificacion |
+| [nom-037-stps](skills/nom-037-stps/SKILL.md) | NOM-037-STPS-2023 (teletrabajo — SST): listado, desconexión de alcance completo, pausas y lactancia, cambio de modalidad, conservación | teletrabajo-sst | en-verificacion (spec en revisión de JP, D-20) |
+
+**Próximas (backlog):** módulos LFT de trabajo-de-menores y lactancia (D-15),
+y la LFPDPPP (protección de datos personales) como siguiente ley.
 
 ## Estructura
 
 ```
-klokk-skills-leyes/
-├── README.md                        ← este archivo: propósito, guía de uso e índice
-├── plantillas/
-│   └── plantilla-skill-legal.md     ← plantilla v1 (documento plano); pendiente su v2 Agent Skills
-└── skills/
-    └── registro-jornada/            ← una carpeta por skill, en formato Agent Skills
-        ├── SKILL.md                 ← frontmatter parseable + instrucciones ejecutables
-        ├── references/              ← texto legal, criterios de tribunales, reglas R1–R10
-        └── assets/                  ← plantilla del reporte de salida
+skills/
+  <ley>/
+    SKILL.md                  ← la puerta de entrada: qué cubre, el flujo
+                                instanciado, la regla F2→severidad y el
+                                índice de módulos
+    modulos/<tema>/
+      texto-legal.md          ← SOLO fuente oficial: citas textuales F-xx
+                                con documento y página
+      reglas.md               ← reglas RD-xx (riesgo, estado FIRME/FIRME*/
+                                PENDIENTE, fuente) + casos límite CL-xx +
+                                árbol de severidad
+      guia-auditoria.md       ← aplicabilidad (F1, señales + greps),
+                                superficies a revisar (F2), guía del módulo,
+                                límites y procedencia
+plantillas/
+  flujo-auditoria-codigo.md   ← el flujo F0–F5 común a todas las leyes
+  plantilla-reporte.md        ← formato estándar del reporte
+  brief-investigacion-skill.md, plantilla-skill-legal.md  ← pipeline de contenido
+specs/                        ← specs verificadas de las que se construyó cada módulo
+FUENTES.md                    ← documentos oficiales con SHA-256 (cadena de custodia)
+tools/validar.py              ← el CI: estructura, fidelidad de formato, guards
 ```
 
-La plantilla vive fuera de `skills/` a propósito: así "consumir las skills"
-es simplemente leer `skills/*/SKILL.md`, sin filtrar nada.
+## Cómo se produce el contenido (pipeline)
 
-## Anatomía de una skill
+1. **Investigación verificada:** el texto legal se descarga de la fuente
+   oficial en la sesión, se transcribe con documento + página y se ancla por
+   hash en FUENTES.md. Nada se escribe de memoria; lo ambiguo se registra
+   como caso límite (CL-xx), jamás se resuelve inventando.
+2. **Spec y gate:** cada módulo nace de una spec en `specs/` aprobada por el
+   dueño de la librería.
+3. **Fase 3 (pendiente):** un abogado laboralista revisará la librería
+   completa — los CL-xx priorizados son su paquete de entrada; solo entonces
+   los estados suben a `verificada` y se etiqueta v1.0.0.
 
-Toda skill sigue cinco secciones fijas, siempre en este orden:
-
-| Sección | Contenido | Regla de oro |
-|---------|-----------|--------------|
-| **(a) Fuente legal exacta** | Artículo, fracción, fecha de publicación en el DOF, link oficial y cita textual | Cero interpretación: solo el hecho verificable |
-| **(b) Interpretación operativa** | Qué significa en la práctica para una empresa y para Klokk | Lenguaje claro, sin jerga jurídica |
-| **(c) Reglas derivadas** | Lógica implementable, numerada (`RD-01`, `RD-02`…) | Cero ambigüedad: unidades, límites y redondeos explícitos |
-| **(d) Casos límite y preguntas abiertas** | Dónde la ley es ambigua o falta que la autoridad defina algo (`CL-01`…) | Lo que no se sabe se registra, no se inventa |
-| **(e) Estado y última revisión** | Historial de verificaciones contra fuente oficial | Toda revisión se registra, incluso sin cambios |
-
-Además, cada skill abre con **frontmatter YAML** (`id`, `titulo`, `estado`,
-`ultima_revision`, `revisado_por`): metadatos legibles por máquina, pensados
-para que el repo principal de Klokk pueda consumir las skills
-programáticamente sin parsear prosa.
-
-**Trazabilidad:** las fuentes se identifican como `F-xx`, las reglas derivadas
-como `RD-xx` y los casos límite como `CL-xx`. Cada RD cita las F que la
-respaldan, y el código de Klokk podrá citar `<skill>/RD-xx` en cálculos y
-tests. La cadena completa: **artículo → regla → código**.
-
-### Formato v2 — Agent Skills (desde 2026-07-07)
-
-A partir de la primera skill real (`registro-jornada`), las skills adoptan el
-formato oficial de **Agent Skills**: una carpeta por skill con `SKILL.md`
-(frontmatter `name`/`description`/`metadata` + instrucciones ejecutables),
-`references/` para el contenido legal y `assets/` para plantillas de salida.
-El punto de entrada programático es `skills/<skill>/SKILL.md`.
-
-La anatomía (a)–(e) sigue siendo el checklist de contenido y se mapea así:
-(a) → `references/texto-legal.md` · (b) → `SKILL.md` y
-`references/criterios-tribunales.md` · (c) → `references/reglas.md` (con su
-estado FIRME / PENDIENTE por regla) · (d) → reglas `FIRME*` y marcas
-`PENDIENTE` · (e) → `metadata.reviewed_at` y la sección "Estado del contenido"
-del `SKILL.md`. La plantilla v1 (`plantillas/plantilla-skill-legal.md`) queda
-como referencia del formato documento hasta que exista su versión v2.
-
-## Ciclo de vida de una skill
-
-```
-borrador ──→ en-verificacion ──→ verificada
-                  ↑                   │ (reforma en el DOF, o revisión vencida)
-                  │                   ↓
-                  └──── requiere-actualizacion
-```
-
-- **borrador** — en redacción; puede contener `[corchetes]` sin resolver.
-- **en-verificacion** — completa, pendiente de contraste contra el DOF.
-- **verificada** — contrastada contra fuente oficial; la única apta para consumo.
-- **requiere-actualizacion** — se publicó una reforma que la afecta, o su última revisión ya venció.
-
-## Cómo leer y usar una skill
-
-1. Mira el frontmatter: si `estado` no es `verificada`, detente ahí.
-2. La sección (b) te dice qué significa; la (c) te da las reglas exactas para implementar.
-3. Antes de implementar una RD, revisa la (d): puede haber un caso límite abierto que la afecte.
-4. Ante cualquier duda de vigencia: la (a) tiene el link a la fuente oficial y la (e) el historial de revisiones.
-
-## Cómo crear una skill nueva
-
-1. Crea `skills/<tema>/` (kebab-case) siguiendo la estructura de
-   `registro-jornada` — SKILL.md + references/ + assets/; mientras no exista
-   la plantilla v2, esa skill es la referencia del formato. Una skill = un
-   tema operativo (jornada, horas extra, aguinaldo…), no una ley completa.
-2. Llénala siguiendo las instrucciones incluidas en la propia plantilla.
-3. Toda afirmación legal se contrasta contra el DOF **antes** de marcar la
-   skill como `verificada`.
-4. Agrega su fila al índice de abajo y haz commits descriptivos: el historial
-   de git es parte del valor auditable de este repo.
-
-## Índice de skills
-
-| Skill | Qué cubre | Estado | Última revisión |
-|-------|-----------|--------|-----------------|
-| [registro-jornada](skills/registro-jornada/SKILL.md) | Auditoría del registro electrónico de jornada — Art. 132 Fr. XXXIV LFT (DOF 2026-05-01) | en-verificacion | 2026-07-07 |
-| [jornada-laboral](skills/jornada-laboral/SKILL.md) | Tipos de jornada y límites diario/semanal por año — Arts. 58–68 LFT + calendario 48→40 (2026–2030) | en-verificacion | 2026-07-07 |
-| [horas-extra](skills/horas-extra/SKILL.md) | Regímenes del tiempo extraordinario (+100 %/+200 %/siniestro) y topes por año — Arts. 65–68 LFT + calendario 9/9/10/11/12 | en-verificacion | 2026-07-07 |
-| [dias-de-descanso](skills/dias-de-descanso/SKILL.md) | Descanso semanal, prima dominical y pago doble del descanso trabajado — Arts. 69–73 LFT | en-verificacion | 2026-07-07 |
-| [dias-festivos](skills/dias-festivos/SKILL.md) † | Calendario de descansos obligatorios (fijos, lunes móviles, sexenal, electoral) y pago doble del festivo laborado — Arts. 74–75 LFT | en-verificacion | 2026-07-07 |
-| [vacaciones](skills/vacaciones/SKILL.md) † | Tabla "vacaciones dignas" por antigüedad, 12 días continuos, ventana de 6 meses y prima ≥25 % — Arts. 76–81 LFT | en-verificacion | 2026-07-07 |
-| [teletrabajo](skills/teletrabajo/SKILL.md) † | Umbral del 40 %, jornada remota con los mismos máximos, desconexión y supervisión proporcional — Arts. 330-A–330-K LFT (NOM-037 pendiente, D-12) | en-verificacion | 2026-07-07 |
-| [conservacion-y-prueba](skills/conservacion-y-prueba/SKILL.md) † | Documentos a conservar/exhibir y sus plazos, hechos con carga de la prueba del patrón y presunción en contra — Arts. 784, 804 y 805 LFT | en-verificacion | 2026-07-07 |
-| [asistencia-y-faltas](skills/asistencia-y-faltas/SKILL.md) † | Clasificación de ausencias, contador de la causal 47-X (4ª falta en 30 días) y soporte del despido por faltas — Arts. 46–47, 134–135 LFT | en-verificacion | 2026-07-07 |
-
-† Construida en modo batch (D-11 en DECISIONES.md); spec revisada y aprobada
-en bloque por JP el 2026-07-08 (D-14). La fase 3 (abogado) aplica igual que a
-todas.
-
-<!-- Al agregar o revisar una skill, actualiza su fila. Este índice es el
-     tablero de auditoría del repo. -->
-
-## Consumo desde el repo principal de Klokk (futuro)
-
-Decisión abierta. Opciones sobre la mesa:
-
-- **Submódulo de git** — el repo del producto fija una versión exacta de las
-  skills; cada build es auditable por commit.
-- **Copia versionada por release** — un script sincroniza `skills/` hacia el
-  repo principal y registra el commit de origen.
-- **Lectura directa de metadatos** — tooling del producto (o un agente) lee
-  `skills/*/SKILL.md` y usa el frontmatter para validar vigencia antes de
-  confiar en una regla.
-
-Las tres dependen de lo mismo, y por eso el formato importa más que el
-mecanismo: frontmatter parseable, secciones fijas e IDs estables.
+Proceso completo, decisiones y bitácora: [CLAUDE.md](CLAUDE.md),
+[DECISIONES.md](DECISIONES.md), [BITACORA.md](BITACORA.md),
+[STATUS.md](STATUS.md), [BACKLOG.md](BACKLOG.md).
 
 ## Convenciones
 
-- Español; fechas en formato ISO (`AAAA-MM-DD`); archivos en `kebab-case`.
-- Una skill = un tema operativo, no una ley completa.
-- No se guardan PDFs del DOF en el repo: se enlaza a la fuente oficial.
-- IDs estables que nunca se reciclan: `F-xx`, `RD-xx`, `CL-xx`.
-- Placeholders siempre `[entre corchetes]`; ninguno sobrevive en una skill `verificada`.
+- Español; fechas ISO; IDs estables que no se reciclan: `F-xx` (fuentes),
+  `RD-xx` (reglas), `CL-xx` (casos límite), `H-xx` (hallazgos por corrida),
+  `D-xx` (decisiones), `M-xx` (mejoras).
+- Referencias entre módulos y skills SIEMPRE calificadas: "RD-09 del módulo
+  registro-jornada (lft)", "F-02 de la skill nom-037-stps".
+- Estados de contenido: `borrador` → `en-verificacion` → `verificada` (solo
+  fase 3) → `requiere-actualizacion`.
+- La librería es agnóstica del proyecto auditado (D-18): ningún contenido
+  asume un producto concreto; el CI lo hace cumplir.
